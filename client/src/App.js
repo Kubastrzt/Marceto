@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useStorePopup} from "./hooks/use-store-popup";
+import {useStorePopup} from "@/hooks/use-store-popup";
 
 const App = ()=>{
     const onOpen = useStorePopup((state)=>state.onOpen);

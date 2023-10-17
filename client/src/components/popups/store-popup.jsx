@@ -1,5 +1,5 @@
-import Popup from "../ui/popup";
-import {useStorePopup} from "../../hooks/use-store-popup";
+import Popup from "@/components/ui/popup";
+import {useStorePopup} from "@/hooks/use-store-popup";
 
 const StorePopup = ()=>{
     const storePopup = useStorePopup();

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "./dialog";
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 
 const Popup = ({title, description, isOpen, onClose, children})=>{
     const onChange = (open)=>{

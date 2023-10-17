@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import './globals.css';
+import App from '@/App';
+import '@/globals.css';
 import {BrowserRouter, useNavigate, Route, Routes} from "react-router-dom";
 import {
     ClerkProvider,
     SignIn,
     SignUp
 } from "@clerk/clerk-react";
-import PopupProvider from "./providers/popup-provider";
+import PopupProvider from "@/providers/popup-provider";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
