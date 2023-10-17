@@ -8,6 +8,7 @@ import {
     SignIn,
     SignUp
 } from "@clerk/clerk-react";
+import PopupProvider from "./providers/popup-provider";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -27,6 +28,7 @@ const ClerkWithRoutes = () =>{
                 <Route path='/sign-up/*' element={<SignUp redirectUrl='/home' routing='path' path='/sign-up'/>}/>
                 <Route path='/sign-in/*' element={<SignIn redirectUrl='/home' routing='path' path='/sign-in'/>}/>
             </Routes>
+            <PopupProvider/>
         </ClerkProvider>
     )
 }
