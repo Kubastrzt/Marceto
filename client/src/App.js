@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
-import {useStorePopup} from "@/hooks/use-store-popup";
+import {useStorePopup} from "@/hooks/useStorePopup";
+import PopupProvider from "./providers/PopupProvider";
 
 const App = ()=>{
     const onOpen = useStorePopup((state)=>state.onOpen);
@@ -12,9 +13,7 @@ const App = ()=>{
     }, [isOpen, onOpen]);
 
     return(
-        <div>
-            Root
-        </div>
+        <PopupProvider/>
     );
 }
 
