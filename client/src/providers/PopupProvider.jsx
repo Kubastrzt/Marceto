@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-import StorePopup from "@/components/popups/store-popup";
+import StorePopup from "@/components/StorePopup/StorePopup";
 
 const PopupProvider = ()=>{
     const [isMounted, setIsMounted] = useState(false);
