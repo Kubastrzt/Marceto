@@ -4,11 +4,11 @@ import App from '@/App';
 import '@/globals.css';
 import {BrowserRouter, useNavigate, Route, Routes} from "react-router-dom";
 import {
-    ClerkProvider,
+    ClerkProvider, RedirectToSignIn, SignedIn, SignedOut,
     SignIn,
     SignUp
 } from "@clerk/clerk-react";
-import PopupProvider from "@/providers/popup-provider";
+import {ToastContainer} from "react-toastify";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -24,11 +24,20 @@ const ClerkWithRoutes = () =>{
     return (
         <ClerkProvider publishableKey={clerkPubKey} navigate={(to)=> {navigate(to)}}>
             <Routes>
-                <Route path='/' element={<App/>}/>
+                <Route path='/' element={
+                    <>
+                        <SignedIn>
+                            <App/>
+                            <ToastContainer />
+                        </SignedIn>
+                        <SignedOut>
+                            <RedirectToSignIn/>
+                        </SignedOut>
+                    </>
+                }/>
                 <Route path='/sign-up/*' element={<SignUp redirectUrl='/home' routing='path' path='/sign-up'/>}/>
                 <Route path='/sign-in/*' element={<SignIn redirectUrl='/home' routing='path' path='/sign-in'/>}/>
             </Routes>
-            <PopupProvider/>
         </ClerkProvider>
     )
 }
