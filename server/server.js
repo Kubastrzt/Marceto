@@ -32,6 +32,33 @@ app.post('/api/stores', async (req, res) => {
     res.json(store);
 });
 
+app.get('/api/user/:id/first-store', async (req, res) => {
+    const userId = req.params.id;
+
+    const usersStore = await prismaDB.store.findFirst({
+        where: {
+            userId
+        }
+    })
+
+    res.json(usersStore);
+});
+
+
+app.get('/api/user/:id/:sid', async (req, res)=>{
+    const userId = req.params.id;
+    const storeId = req.params.sid;
+
+    const store = await prismaDB.store.findFirst({
+        where: {
+            id: storeId,
+            userId
+        }
+    })
+
+    res.json(store);
+})
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
