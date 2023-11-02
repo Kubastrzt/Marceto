@@ -3,6 +3,7 @@ import {Input} from "@/components/ui/input";
 import {Form, FormField, FormItem, FormLabel, FormControl, FormMessage} from "@/components/ui/form";
 import {useStorePopup} from "@/hooks/useStorePopup";
 import {Button} from "@/components/ui/button";
+import {useNavigate} from 'react-router-dom';
 
 import * as zod from "zod";
 import {useForm} from "react-hook-form";
@@ -19,6 +20,7 @@ const formSchema = zod.object({
 
 const StorePopup = ()=>{
     const storePopup = useStorePopup();
+    const navigate = useNavigate();
     const {userId} = useAuth();
 
     const [loading, setLoading] = useState(false);
@@ -35,16 +37,16 @@ const StorePopup = ()=>{
         const newValues = {...values, userId}
 
         try {
-            await axios.post('http://localhost:3001/api/stores', newValues);
-
-            toast.success("Store has been created!", {
-                position: toast.POSITION.TOP_RIGHT
+            const response = await toast.promise(axios.post('http://localhost:3001/api/stores', newValues), {
+                pending: 'Creating store...',
+                success: 'Store created 👌 Redirecting...',
+                error: 'Something went wrong 🤯'
             });
+
+            if(response) {
+                window.location.assign(`/dashboard/${userId}/${response.data.id}`)
+            }
         } catch (err) {
-            toast.error("Something went wrong!", {
-                position: toast.POSITION.TOP_RIGHT
-            });
-
             console.log(err)
         } finally {
             setLoading(false)
