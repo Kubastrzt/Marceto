@@ -1,20 +1,32 @@
-import React, {useEffect} from 'react';
-import {useStorePopup} from "@/hooks/useStorePopup";
-import PopupProvider from "./providers/PopupProvider";
+import {useAuth} from "@clerk/clerk-react";
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import {useEffect} from "react";
 
 const App = ()=>{
-    const onOpen = useStorePopup((state)=>state.onOpen);
-    const isOpen = useStorePopup((state)=>state.isOpen);
+    const {userId} = useAuth()
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        if(!isOpen){
-            onOpen();
+    if(!userId) {
+        navigate('/sign-in/')
+    }
+
+    const getUsersStore = async ()=>{
+        try {
+            const response = await axios.get(`http://localhost:3001/api/user/${userId}/first-store`);
+            if(response.data) {
+                navigate(`/dashboard/${userId}/${response.data.id}`)
+            }
+        } catch (error) {
+            console.log(error);
         }
-    }, [isOpen, onOpen]);
+    }
 
-    return(
-        <PopupProvider/>
-    );
+    useEffect(()=>{
+        getUsersStore();
+    },[]);
+
+    return null
 }
 
 export default App
