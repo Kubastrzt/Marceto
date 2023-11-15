@@ -11,12 +11,14 @@ const App = ()=>{
         navigate('/sign-in/')
     }
 
-    console.log('test')
     const getUsersStore = async ()=>{
         try {
             const response = await axios.get(`http://localhost:3001/api/user/${userId}/first-store`);
             if(response.data) {
                 navigate(`/dashboard/${userId}/${response.data.id}/`)
+            }
+            else {
+                navigate('/create-store');
             }
         } catch (error) {
             console.log(error);
