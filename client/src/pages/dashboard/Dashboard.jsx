@@ -30,7 +30,6 @@ const Dashboard = ()=>{
     return(
         <>
             <Header/>
-            Active store: {store?.name}
         </>
     );
 }
