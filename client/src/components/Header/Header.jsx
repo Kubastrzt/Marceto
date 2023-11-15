@@ -3,8 +3,7 @@ import Navigation from "@/components/Navigation/Navigation";
 
 const Header = ()=>{
     return(
-        <header>
-            Header
+        <header className='flex p-4 items-center justify-between '>
             <Navigation/>
         </header>
     );
