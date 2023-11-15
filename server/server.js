@@ -59,6 +59,18 @@ app.get('/api/user/:id/:sid', async (req, res)=>{
     res.json(store);
 })
 
+app.get('/api/:id/stores', async (req, res)=>{
+    const userId = req.params.id;
+
+    const stores = await prismaDB.store.findMany({
+        where: {
+            userId,
+        },
+    });
+
+    res.json(stores);
+})
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
