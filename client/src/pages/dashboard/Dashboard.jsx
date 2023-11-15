@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useAuth, UserButton} from "@clerk/clerk-react";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
-import Navigation from "@/components/Navigation/Navigation";
+import Header from "@/components/Header/Header";
 
 const Dashboard = ()=>{
     const [store, setStore] = useState({})
@@ -10,28 +10,27 @@ const Dashboard = ()=>{
     const params = useParams();
     const navigate = useNavigate();
 
-    if(!userId) {
-        navigate('/sign-in/');
-    }
-
-    const getAvailableStore = async ()=>{
-        const response = await axios.get(`http://localhost:3001/api/user/${userId}/${params.sid}`)
-        setStore(response.data)
-    }
-
     useEffect(() => {
-        getAvailableStore()
-    }, []);
+        if(!userId) {
+            navigate('/sign-in/');
+        }
 
-    if(!store) {
-        navigate('/');
-    }
+        const getAvailableStore = async ()=>{
+            const response = await axios.get(`http://localhost:3001/api/user/${userId}/${params.sid}`)
+            setStore(response.data)
+        }
+
+        getAvailableStore()
+
+        if(!store) {
+            navigate('/');
+        }
+    }, []);
 
     return(
         <>
-            <Navigation/>
+            <Header/>
             Active store: {store?.name}
-            <UserButton/>
         </>
     );
 }
