@@ -44,7 +44,7 @@ const StorePopup = ()=>{
             });
 
             if(response) {
-                window.location.assign(`/dashboard/${userId}/${response.data.id}`)
+                window.location.assign(`/dashboard/${userId}/${response.data.id}/`)
             }
         } catch (err) {
             console.log(err)

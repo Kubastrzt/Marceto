@@ -13,6 +13,7 @@ import {
 } from "@clerk/clerk-react";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
+import Settings from '@/pages/settings/Settings';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -52,16 +53,15 @@ const ClerkWithRoutes = () =>{
                 <Route path='/sign-up/*' element={<SignUp routing='path' path='/sign-up'/>}/>
                 <Route path='/sign-in/*' element={<SignIn routing='path' path='/sign-in'/>}/>
                 <Route path='/dashboard/:uid/:sid/' element={<Dashboard routing='path' path='/dashboard/:uid/:sid/'/>}/>
+                <Route path='/dashboard/:uid/:sid/settings/' element={<Settings routing='path' path='/dashboard/:uid/:sid/settings/'/>}/>
             </Routes>
         </ClerkProvider>
     )
 }
 
 root.render(
-  <React.StrictMode>
-      <BrowserRouter>
-          <ClerkWithRoutes />
-      </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+      <ClerkWithRoutes />
+  </BrowserRouter>
 );
 
