@@ -21,7 +21,6 @@ const Switch = ({className, items})=>{
     }))
 
     const activeStore = storesSet?.find(item=> item.value === params.sid);
-
     const onStoreChange = (store)=>{
         setOpen(false);
         navigate(`/dashboard/${params.uid}/${store.value}`);
@@ -32,7 +31,7 @@ const Switch = ({className, items})=>{
             <PopoverTrigger asChild>
                 <Button variant="outline" size="sm" role="combobox" aria-expanded={open} aria-label="Select a store" className={cn("w-[200px] justify-between", className)}>
                     <Store className="mr-2 h-4 w-4"/>
-                    Current store
+                    {activeStore?.label}
                     <ChevronsUpDown className='ml-auto h-4 w-4 shrink-0 opacity-50'/>
                 </Button>
             </PopoverTrigger>
