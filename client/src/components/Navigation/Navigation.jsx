@@ -31,15 +31,20 @@ const Navigation = ()=>{
 
     const routes = [
         {
-            href: `/dashboard/${params.id}/${params.sid}/settings/`,
+            href: `/dashboard/${params.uid}/${params.sid}/`,
+            label: 'Dashboard',
+            active: pathname === `/dashboard/${params.uid}/${params.sid}/`
+        },
+        {
+            href: `/dashboard/${params.uid}/${params.sid}/settings/`,
             label: 'Settings',
-            active: pathname === `/dashboard/${params.id}/${params.sid}/settings/`
+            active: pathname === `/dashboard/${params.uid}/${params.sid}/settings/`
         }
     ]
     return(
         <nav className='flex gap-3 items-center justify-end w-full'>
-            <ul>
-                {routes.map((route)=>(<li key={route.href} ><Link to={route.href} className={cn(route.active ? "text-blue-400" : "text-gray-950")}>{route.label}</Link></li>))}
+            <ul className='flex gap-3'>
+                {routes.map((route)=>(<li key={route.href} ><Link to={route.href} className={cn(route.active ? "font-bold" : "font-normal")}>{route.label}</Link></li>))}
             </ul>
             <Switch items={stores}/>
             <UserButton/>
