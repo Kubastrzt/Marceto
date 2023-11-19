@@ -71,6 +71,84 @@ app.get('/api/:id/stores', async (req, res)=>{
     res.json(stores);
 })
 
+app.patch('/api/:sid/:uid', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+    const {name} = req.body;
+    try {
+        if(!userId) {
+            res.status(401).json({
+                status: "Not authenticated user"
+            })
+
+            return;
+        }
+
+        if(!name) {
+            res.status(404).json({
+                status: "Not found store name"
+            })
+
+            return;
+        }
+
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        const store = await prismaDB.store.updateMany({
+            where: {
+                id: storeId,
+                userId
+            },
+            data: {
+                name
+            }
+        })
+
+        res.json(store)
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.delete('/api/:sid/:uid', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+    try {
+        if(!userId) {
+            res.status(401).json({
+                status: "Not authenticated user"
+            })
+
+            return;
+        }
+
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        const store = await prismaDB.store.deleteMany({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        res.json(store)
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
