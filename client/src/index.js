@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from '@/App';
 import '@/globals.css';
 import Dashboard from '@/pages/dashboard/Dashboard';
-import {useStorePopup} from "@/hooks/useStorePopup";
 import PopupProvider from "@/providers/PopupProvider";
 import {BrowserRouter, useNavigate, Route, Routes} from "react-router-dom";
 import {
@@ -15,6 +14,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
 import Settings from '@/pages/settings/Settings';
 import CreateStore from "@/pages/createStore/CreateStore";
+import Billboards from "@/pages/billboards/Billboards";
+import Billboard from "@/pages/billboard/Billboard";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -45,7 +46,9 @@ const ClerkWithRoutes = () =>{
                 <Route path='/sign-up/*' element={<SignUp routing='path' path='/sign-up'/>}/>
                 <Route path='/sign-in/*' element={<SignIn routing='path' path='/sign-in'/>}/>
                 <Route path='/dashboard/:uid/:sid/' element={<Dashboard routing='path' path='/dashboard/:uid/:sid/'/>}/>
-                <Route path='/dashboard/:uid/:sid/settings/' element={<Settings routing='path' path='/dashboard/:uid/:sid/settings/'/>}/>
+                <Route path='/settings/:uid/:sid/' element={<Settings routing='path' path='/settings/:uid/:sid/'/>}/>
+                <Route path='/billboards/:uid/:sid/' element={<Billboards routing='path' path='/billboards/:uid/:sid/'/>}/>
+                <Route path='/billboards/:uid/:sid/:bid' element={<Billboard routing='path' path='/billboards/:uid/:sid/:bid'/>}/>
             </Routes>
             <PopupProvider/>
         </ClerkProvider>

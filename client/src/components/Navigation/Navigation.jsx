@@ -36,9 +36,14 @@ const Navigation = ()=>{
             active: pathname === `/dashboard/${params.uid}/${params.sid}/`
         },
         {
-            href: `/dashboard/${params.uid}/${params.sid}/settings/`,
+            href: `/billboards/${params.uid}/${params.sid}/`,
+            label: 'Billboards',
+            active: pathname === `/billboards/${params.uid}/${params.sid}/`
+        },
+        {
+            href: `/settings/${params.uid}/${params.sid}/`,
             label: 'Settings',
-            active: pathname === `/dashboard/${params.uid}/${params.sid}/settings/`
+            active: pathname === `/settings/${params.uid}/${params.sid}/`
         }
     ]
     return(
