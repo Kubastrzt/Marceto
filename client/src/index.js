@@ -16,6 +16,8 @@ import Settings from '@/pages/settings/Settings';
 import CreateStore from "@/pages/createStore/CreateStore";
 import Billboards from "@/pages/billboards/Billboards";
 import Billboard from "@/pages/billboard/Billboard";
+import Categories from "@/pages/categories/Categories";
+import Category from "@/pages/category/Category";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -49,6 +51,8 @@ const ClerkWithRoutes = () =>{
                 <Route path='/settings/:uid/:sid/' element={<Settings routing='path' path='/settings/:uid/:sid/'/>}/>
                 <Route path='/billboards/:uid/:sid/' element={<Billboards routing='path' path='/billboards/:uid/:sid/'/>}/>
                 <Route path='/billboards/:uid/:sid/:bid' element={<Billboard routing='path' path='/billboards/:uid/:sid/:bid'/>}/>
+                <Route path='/categories/:uid/:sid/' element={<Categories routing='path' path='/categories/:uid/:sid/'/>}/>
+                <Route path='/categories/:uid/:sid/:cid' element={<Category routing='path' path='/categories/:uid/:sid/:cid'/>}/>
             </Routes>
             <PopupProvider/>
         </ClerkProvider>
