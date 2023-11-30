@@ -14,7 +14,7 @@ import {useAuth} from "@clerk/clerk-react";
 import axios from "axios";
 import {Modal} from "./modal";
 
-export const BillboardActions = ({data})=>{
+export const CategoryActions = ({data})=>{
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const {userId} = useAuth();
@@ -27,12 +27,12 @@ export const BillboardActions = ({data})=>{
     const onDelete = async ()=>{
         try {
             setLoading(true)
-            await toast.promise(axios.delete(`http://localhost:3001/api/${params.sid}/${userId}/billboards/${data.id}`),{
+            await toast.promise(axios.delete(`http://localhost:3001/api/${params.sid}/${userId}/categories/${data.id}`),{
                 pending: 'Deleting...',
-                success: 'Billboard deleted 👌',
+                success: 'Category deleted 👌',
                 error: 'Something went wrong 🤯'
             })
-            navigate(`/billboards/${userId}/${params.sid}/`);
+            navigate(`/categories/${userId}/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -56,7 +56,7 @@ export const BillboardActions = ({data})=>{
                 <DropdownMenuLabel>
                     Actions
                 </DropdownMenuLabel>
-                <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/billboards/${userId}/${params.sid}/${data.id}`)}>
+                <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/categories/${userId}/${params.sid}/${data.id}`)}>
                     <Edit className='mr-2 h-4 w-4'/>
                     Edit
                 </DropdownMenuItem>
@@ -74,4 +74,4 @@ export const BillboardActions = ({data})=>{
     );
 }
 
-export default BillboardActions
+export default CategoryActions
