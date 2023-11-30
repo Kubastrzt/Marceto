@@ -9,15 +9,15 @@ const ApiList = ({entityName, entityIdName})=>{
     const origin = useOrigin();
     const {userId} = useAuth();
 
-    const baseUrl = `${origin}/api/${params.sid}/${userId}`;
+    const baseUrl = `${origin}/api`;
 
     return(
         <>
-            <ApiPopup title="GET" variant='public' description={`${baseUrl}/${entityName}`}/>
-            <ApiPopup title="GET" variant='public' description={`${baseUrl}/{${entityIdName}}`}/>
-            <ApiPopup title="POST" variant='admin' description={`${baseUrl}/${entityName}`}/>
-            <ApiPopup title="PATCH" variant='admin' description={`${baseUrl}/${entityName}/{${entityIdName}}`}/>
-            <ApiPopup title="DELETE" variant='admin' description={`${baseUrl}/${entityName}/{${entityIdName}}`}/>
+            <ApiPopup title="GET" variant='public' description={`${baseUrl}/${params.sid}/${params.uid}/${entityName}`}/>
+            <ApiPopup title="GET" variant='public' description={`${baseUrl}/${entityName}/{${entityIdName}}`}/>
+            <ApiPopup title="POST" variant='admin' description={`${baseUrl}/${params.sid}/${params.uid}/${entityName}`}/>
+            <ApiPopup title="PATCH" variant='admin' description={`${baseUrl}/${params.sid}/${params.uid}/${entityName}/{${entityIdName}}`}/>
+            <ApiPopup title="DELETE" variant='admin' description={`${baseUrl}/${params.sid}/${params.uid}/${entityName}/{${entityIdName}}`}/>
         </>
     );
 }
