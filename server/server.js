@@ -239,6 +239,17 @@ app.get('/api/:sid/:uid/billboards', async (req, res)=>{
 
     res.json(billboards);
 })
+app.get('/api/:sid/:uid/store-billboards', async (req, res)=>{
+    const storeId = req.params.sid;
+
+    const billboards = await prismaDB.billboard.findMany({
+        where: {
+            storeId
+        },
+    })
+
+    res.json(billboards);
+})
 
 app.patch('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
     const storeId = req.params.sid;
@@ -350,6 +361,230 @@ app.delete('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
         console.log(err)
     }
 })
+
+app.get('/api/:sid/:uid/categories', async (req, res)=>{
+    const storeId = req.params.sid;
+
+    const categories = await prismaDB.category.findMany({
+        where: {
+            storeId
+        },
+        include: {
+            billboard: true,
+        },
+        orderBy: {
+            createdAt: 'desc'
+        }
+    })
+
+    res.json(categories);
+})
+
+app.get('/api/categories/:cid', async (req, res)=>{
+    const categoryId = req.params.cid;
+
+    const category = await prismaDB.category.findUnique({
+        where: {
+            id: categoryId
+        }
+    })
+
+    res.json(category);
+})
+
+
+
+app.post('/api/:sid/:uid/categories', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+
+    const {name, billboardId} = req.body;
+
+    try {
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        if(!userId) {
+            res.status(404).json({
+                status: "Not found user id"
+            })
+
+            return;
+        }
+
+        if(!name) {
+            res.status(404).json({
+                status: "Category name is missing"
+            })
+
+            return;
+        }
+
+        if(!billboardId) {
+            res.status(404).json({
+                status: "Billboard ID is missing"
+            })
+
+            return;
+        }
+
+        const storeByUserId = await prismaDB.store.findFirst({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        if(!storeByUserId) {
+            return;
+        }
+
+        const category = await prismaDB.category.create({
+            data: {
+                name,
+                billboardId,
+                storeId
+            }
+        })
+
+        res.json(category);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.get('/api/:sid/:uid/categories', async (req, res)=>{
+    const storeId = req.params.sid;
+
+    const categories = await prismaDB.category.findMany({
+        where: {
+            storeId
+        },
+        orderBy: {
+            createdAt: 'desc'
+        }
+    })
+
+    res.json(categories);
+})
+
+app.patch('/api/:sid/:uid/categories/:cid', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+    const categoryId = req.params.cid;
+
+    const {name, billboardId} = req.body;
+
+    try {
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        if(!userId) {
+            res.status(404).json({
+                status: "Not found user id"
+            })
+
+            return;
+        }
+
+        if(!name) {
+            res.status(404).json({
+                status: "Category name is missing"
+            })
+
+            return;
+        }
+
+        if(!billboardId) {
+            res.status(404).json({
+                status: "Billboard ID is missing"
+            })
+
+            return;
+        }
+
+        const storeByUserId = await prismaDB.store.findFirst({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        if(!storeByUserId) {
+            return;
+        }
+
+        const category = await prismaDB.category.updateMany({
+            where: {
+                id: categoryId,
+            },
+            data: {
+                name,
+                billboardId,
+            }
+        })
+        res.json(category);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.delete('/api/:sid/:uid/categories/:cid', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+    const categoryId = req.params.cid;
+
+    try {
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        if(!userId) {
+            res.status(404).json({
+                status: "Not found user id"
+            })
+
+            return;
+        }
+
+        const storeByUserId = await prismaDB.store.findFirst({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        if(!storeByUserId) {
+            return;
+        }
+
+        const category = await prismaDB.category.deleteMany({
+            where: {
+                id: categoryId,
+            },
+        })
+
+        res.json(category);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
