@@ -44,6 +44,11 @@ const Navigation = ()=>{
             href: `/settings/${params.uid}/${params.sid}/`,
             label: 'Settings',
             active: pathname === `/settings/${params.uid}/${params.sid}/`
+        },
+        {
+            href: `/categories/${params.uid}/${params.sid}/`,
+            label: 'Categories',
+            active: pathname === `/categories/${params.uid}/${params.sid}/`
         }
     ]
     return(
