@@ -20,6 +20,10 @@ import Categories from "@/pages/categories/Categories";
 import Category from "@/pages/category/Category";
 import Sizes from "@/pages/sizes/Sizes";
 import Size from "@/pages/size/Size";
+import Colors from "@/pages/colors/Colors";
+import Color from "@/pages/color/Color";
+import Products from "@/pages/products/Products";
+import Product from "@/pages/product/Product";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -57,6 +61,10 @@ const ClerkWithRoutes = () =>{
                 <Route path='/categories/:uid/:sid/:cid' element={<Category routing='path' path='/categories/:uid/:sid/:cid'/>}/>
                 <Route path='/sizes/:uid/:sid/' element={<Sizes routing='path' path='/sizes/:uid/:sid/'/>}/>
                 <Route path='/sizes/:uid/:sid/:sizeId' element={<Size routing='path' path='/sizes/:uid/:sid/:sizeId'/>}/>
+                <Route path='/colors/:uid/:sid/' element={<Colors routing='path' path='/colors/:uid/:sid/'/>}/>
+                <Route path='/colors/:uid/:sid/:colorId' element={<Color routing='path' path='/colors/:uid/:sid/:colorId'/>}/>
+                <Route path='/products/:uid/:sid/' element={<Products routing='path' path='/products/:uid/:sid/'/>}/>
+                <Route path='/products/:uid/:sid/:productId' element={<Product routing='path' path='/products/:uid/:sid/:productId'/>}/>
             </Routes>
             <PopupProvider/>
         </ClerkProvider>

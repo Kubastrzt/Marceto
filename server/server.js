@@ -776,6 +776,548 @@ app.delete('/api/:sid/:uid/sizes/:sizeId', async (req, res)=>{
     }
 })
 
+// Get all colors ordered desc
+app.get('/api/:sid/:uid/colors', async (req, res)=>{
+    const storeId = req.params.sid;
+
+    const colors = await prismaDB.color.findMany({
+        where: {
+            storeId
+        },
+        orderBy: {
+            createdAt: 'desc'
+        }
+    })
+
+    res.json(colors);
+})
+
+// Get chosen color
+app.get('/api/colors/:colorId', async (req, res)=>{
+    const colorId = req.params.colorId;
+
+    const color = await prismaDB.color.findUnique({
+        where: {
+            id: colorId
+        }
+    })
+
+    res.json(color);
+})
+
+// Post one color
+app.post('/api/:sid/:uid/colors', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+
+    const {name, value} = req.body;
+
+    try {
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        if(!userId) {
+            res.status(404).json({
+                status: "Not found user id"
+            })
+
+            return;
+        }
+
+        if(!name) {
+            res.status(404).json({
+                status: "Color name is missing"
+            })
+
+            return;
+        }
+
+        if(!value) {
+            res.status(404).json({
+                status: "Value is missing"
+            })
+
+            return;
+        }
+
+        const storeByUserId = await prismaDB.store.findFirst({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        if(!storeByUserId) {
+            return;
+        }
+
+        const color = await prismaDB.color.create({
+            data: {
+                name,
+                value,
+                storeId
+            }
+        })
+
+        res.json(color);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+// Update chosen color
+app.patch('/api/:sid/:uid/colors/:colorId', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+    const colorId = req.params.colorId;
+
+    const {name, value} = req.body;
+
+    try {
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        if(!userId) {
+            res.status(404).json({
+                status: "Not found user id"
+            })
+
+            return;
+        }
+
+        if(!name) {
+            res.status(404).json({
+                status: "Color name is missing"
+            })
+
+            return;
+        }
+
+        if(!value) {
+            res.status(404).json({
+                status: "Value is missing"
+            })
+
+            return;
+        }
+
+        const storeByUserId = await prismaDB.store.findFirst({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        if(!storeByUserId) {
+            return;
+        }
+
+        const color = await prismaDB.color.updateMany({
+            where: {
+                id: colorId,
+            },
+            data: {
+                name,
+                value,
+            }
+        })
+        res.json(color);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+// Delete chosen color
+app.delete('/api/:sid/:uid/colors/:colorId', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+    const colorId = req.params.colorId;
+
+    try {
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        if(!userId) {
+            res.status(404).json({
+                status: "Not found user id"
+            })
+
+            return;
+        }
+
+        const storeByUserId = await prismaDB.store.findFirst({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        if(!storeByUserId) {
+            return;
+        }
+
+        const color = await prismaDB.color.deleteMany({
+            where: {
+                id: colorId,
+            },
+        })
+
+        res.json(color);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+
+
+// Get all products
+app.get('/api/:sid/:uid/products', async (req, res)=>{
+    const storeId = req.params.sid;
+
+    const products = await prismaDB.product.findMany({
+        where: {
+            storeId
+        },
+        include: {
+          category: true,
+          size: true,
+          color: true,
+        },
+        orderBy: {
+            createdAt: 'desc'
+        }
+    })
+
+    res.json(products);
+})
+
+// Get chosen product
+app.get('/api/products/:productId', async (req, res)=>{
+    const productId = req.params.productId;
+
+    const product = await prismaDB.product.findUnique({
+        where: {
+            id: productId
+        },
+        include: {
+            images: true,
+        }
+    })
+
+    res.json(product);
+})
+
+// Post one product
+app.post('/api/:sid/:uid/products', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+
+    const {
+        name,
+        price,
+        categoryId,
+        colorId,
+        sizeId,
+        images,
+        isFeatured,
+        isArchived
+    } = req.body;
+
+    try {
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        if(!userId) {
+            res.status(404).json({
+                status: "Not found user id"
+            })
+
+            return;
+        }
+
+        if(!name) {
+            res.status(400).json({
+                status: "Product name is missing"
+            })
+
+            return;
+        }
+
+        if(!images || !images.length) {
+            res.status(400).json({
+                status: "Product images are missing"
+            })
+
+            return;
+        }
+
+        if(!price) {
+            res.status(400).json({
+                status: "Product price is missing"
+            })
+
+            return;
+        }
+
+        if(!categoryId) {
+            res.status(400).json({
+                status: "Product category is missing"
+            })
+
+            return;
+        }
+
+        if(!sizeId) {
+            res.status(400).json({
+                status: "Product size is missing"
+            })
+
+            return;
+        }
+
+        if(!colorId) {
+            res.status(400).json({
+                status: "Product color is missing"
+            })
+
+            return;
+        }
+
+        const storeByUserId = await prismaDB.store.findFirst({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        if(!storeByUserId) {
+            return;
+        }
+
+        const product = await prismaDB.product.create({
+            data: {
+                name,
+                price,
+                categoryId,
+                colorId,
+                sizeId,
+                isFeatured,
+                isArchived,
+                storeId,
+                images: {
+                    createMany: {
+                        data: [
+                            ...images.map((image)=>image)
+                        ]
+                    }
+                }
+            }
+        })
+
+        res.json(product);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+// Update chosen product
+app.patch('/api/:sid/:uid/products/:productId', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+    const productId = req.params.productId;
+
+    const {
+        name,
+        price,
+        categoryId,
+        colorId,
+        sizeId,
+        images,
+        isFeatured,
+        isArchived,
+    } = req.body;
+
+    try {
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        if(!userId) {
+            res.status(404).json({
+                status: "Not found user id"
+            })
+
+            return;
+        }
+
+        if(!name) {
+            res.status(400).json({
+                status: "Product name is missing"
+            })
+
+            return;
+        }
+
+        if(!images || !images.length) {
+            res.status(400).json({
+                status: "Product images are missing"
+            })
+
+            return;
+        }
+
+        if(!price) {
+            res.status(400).json({
+                status: "Product price is missing"
+            })
+
+            return;
+        }
+
+        if(!categoryId) {
+            res.status(400).json({
+                status: "Product category is missing"
+            })
+
+            return;
+        }
+
+        if(!sizeId) {
+            res.status(400).json({
+                status: "Product size is missing"
+            })
+
+            return;
+        }
+
+        if(!colorId) {
+            res.status(400).json({
+                status: "Product color is missing"
+            })
+
+            return;
+        }
+
+        const storeByUserId = await prismaDB.store.findFirst({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        if(!storeByUserId) {
+            return;
+        }
+
+        await prismaDB.product.update({
+            where: {
+                id: productId,
+            },
+            data: {
+                name,
+                price,
+                categoryId,
+                colorId,
+                sizeId,
+                images: {
+                    deleteMany: {}
+                },
+                isFeatured,
+                isArchived,
+            }
+        })
+
+        const product = await prismaDB.product.update({
+            where: {
+                id: productId,
+            },
+            data: {
+                images: {
+                    createMany: {
+                        data: [
+                            ...images.map((image)=>image)
+                        ]
+                    }
+                }
+            }
+        })
+
+        res.json(product);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+// Delete chosen billboard
+app.delete('/api/:sid/:uid/products/:productId', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+    const productId = req.params.productId;
+
+    try {
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        if(!userId) {
+            res.status(404).json({
+                status: "Not found user id"
+            })
+
+            return;
+        }
+
+        const storeByUserId = await prismaDB.store.findFirst({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        if(!storeByUserId) {
+            return;
+        }
+
+        const product = await prismaDB.product.deleteMany({
+            where: {
+                id: productId,
+            },
+        })
+
+        res.json(product);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

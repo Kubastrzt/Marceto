@@ -54,6 +54,16 @@ const Navigation = ()=>{
             href: `/sizes/${params.uid}/${params.sid}/`,
             label: 'Sizes',
             active: pathname === `/sizes/${params.uid}/${params.sid}/`
+        },
+        {
+            href: `/colors/${params.uid}/${params.sid}/`,
+            label: 'Colors',
+            active: pathname === `/colors/${params.uid}/${params.sid}/`
+        },
+        {
+            href: `/products/${params.uid}/${params.sid}/`,
+            label: 'Products',
+            active: pathname === `/products/${params.uid}/${params.sid}/`
         }
     ]
     return(
