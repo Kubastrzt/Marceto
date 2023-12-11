@@ -1272,7 +1272,7 @@ app.patch('/api/:sid/:uid/products/:productId', async (req, res)=>{
     }
 })
 
-// Delete chosen billboard
+// Delete chosen product
 app.delete('/api/:sid/:uid/products/:productId', async (req, res)=>{
     const storeId = req.params.sid;
     const userId = req.params.uid;
