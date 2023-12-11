@@ -149,6 +149,26 @@ app.delete('/api/:sid/:uid', async (req, res)=>{
     }
 })
 
+
+
+
+// Get all billboards ordered desc
+app.get('/api/:sid/:uid/billboards', async (req, res)=>{
+    const storeId = req.params.sid;
+
+    const billboards = await prismaDB.billboard.findMany({
+        where: {
+            storeId
+        },
+        orderBy: {
+            createdAt: 'desc'
+        }
+    })
+
+    res.json(billboards);
+})
+
+// Get chosen billboard
 app.get('/api/billboard/:bid', async (req, res)=>{
     const billboardId = req.params.bid;
 
@@ -161,6 +181,7 @@ app.get('/api/billboard/:bid', async (req, res)=>{
     res.json(billboard);
 })
 
+// Post one billboard
 app.post('/api/:sid/:uid/billboards', async (req, res)=>{
     const storeId = req.params.sid;
     const userId = req.params.uid;
@@ -225,32 +246,7 @@ app.post('/api/:sid/:uid/billboards', async (req, res)=>{
     }
 })
 
-app.get('/api/:sid/:uid/billboards', async (req, res)=>{
-    const storeId = req.params.sid;
-
-    const billboards = await prismaDB.billboard.findMany({
-        where: {
-            storeId
-        },
-        orderBy: {
-            createdAt: 'desc'
-        }
-    })
-
-    res.json(billboards);
-})
-app.get('/api/:sid/:uid/store-billboards', async (req, res)=>{
-    const storeId = req.params.sid;
-
-    const billboards = await prismaDB.billboard.findMany({
-        where: {
-            storeId
-        },
-    })
-
-    res.json(billboards);
-})
-
+// Update chosen billboard
 app.patch('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
     const storeId = req.params.sid;
     const userId = req.params.uid;
@@ -317,6 +313,7 @@ app.patch('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
     }
 })
 
+// Delete chosen billboard
 app.delete('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
     const storeId = req.params.sid;
     const userId = req.params.uid;
@@ -362,6 +359,7 @@ app.delete('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
     }
 })
 
+// Get all categories ordered desc that are including billboard
 app.get('/api/:sid/:uid/categories', async (req, res)=>{
     const storeId = req.params.sid;
 
@@ -380,6 +378,7 @@ app.get('/api/:sid/:uid/categories', async (req, res)=>{
     res.json(categories);
 })
 
+// Get chosen category
 app.get('/api/categories/:cid', async (req, res)=>{
     const categoryId = req.params.cid;
 
@@ -392,8 +391,7 @@ app.get('/api/categories/:cid', async (req, res)=>{
     res.json(category);
 })
 
-
-
+// Post one category
 app.post('/api/:sid/:uid/categories', async (req, res)=>{
     const storeId = req.params.sid;
     const userId = req.params.uid;
@@ -458,21 +456,7 @@ app.post('/api/:sid/:uid/categories', async (req, res)=>{
     }
 })
 
-app.get('/api/:sid/:uid/categories', async (req, res)=>{
-    const storeId = req.params.sid;
-
-    const categories = await prismaDB.category.findMany({
-        where: {
-            storeId
-        },
-        orderBy: {
-            createdAt: 'desc'
-        }
-    })
-
-    res.json(categories);
-})
-
+// Update chosen category
 app.patch('/api/:sid/:uid/categories/:cid', async (req, res)=>{
     const storeId = req.params.sid;
     const userId = req.params.uid;
@@ -539,6 +523,7 @@ app.patch('/api/:sid/:uid/categories/:cid', async (req, res)=>{
     }
 })
 
+// Delete chosen category
 app.delete('/api/:sid/:uid/categories/:cid', async (req, res)=>{
     const storeId = req.params.sid;
     const userId = req.params.uid;
@@ -584,6 +569,212 @@ app.delete('/api/:sid/:uid/categories/:cid', async (req, res)=>{
     }
 })
 
+// Get all sizes ordered desc
+app.get('/api/:sid/:uid/sizes', async (req, res)=>{
+    const storeId = req.params.sid;
+
+    const sizes = await prismaDB.size.findMany({
+        where: {
+            storeId
+        },
+        orderBy: {
+            createdAt: 'desc'
+        }
+    })
+
+    res.json(sizes);
+})
+
+// Get chosen size
+app.get('/api/sizes/:sizeId', async (req, res)=>{
+    const sizeId = req.params.sizeId;
+
+    const size = await prismaDB.size.findUnique({
+        where: {
+            id: sizeId
+        }
+    })
+
+    res.json(size);
+})
+
+// Post one size
+app.post('/api/:sid/:uid/sizes', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+
+    const {name, value} = req.body;
+
+    try {
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        if(!userId) {
+            res.status(404).json({
+                status: "Not found user id"
+            })
+
+            return;
+        }
+
+        if(!name) {
+            res.status(404).json({
+                status: "Size name is missing"
+            })
+
+            return;
+        }
+
+        if(!value) {
+            res.status(404).json({
+                status: "Value is missing"
+            })
+
+            return;
+        }
+
+        const storeByUserId = await prismaDB.store.findFirst({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        if(!storeByUserId) {
+            return;
+        }
+
+        const size = await prismaDB.size.create({
+            data: {
+                name,
+                value,
+                storeId
+            }
+        })
+
+        res.json(size);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+// Update chosen size
+app.patch('/api/:sid/:uid/sizes/:sizeId', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+    const sizeId = req.params.sizeId;
+
+    const {name, value} = req.body;
+
+    try {
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        if(!userId) {
+            res.status(404).json({
+                status: "Not found user id"
+            })
+
+            return;
+        }
+
+        if(!name) {
+            res.status(404).json({
+                status: "Size name is missing"
+            })
+
+            return;
+        }
+
+        if(!value) {
+            res.status(404).json({
+                status: "Value is missing"
+            })
+
+            return;
+        }
+
+        const storeByUserId = await prismaDB.store.findFirst({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        if(!storeByUserId) {
+            return;
+        }
+
+        const size = await prismaDB.size.updateMany({
+            where: {
+                id: sizeId,
+            },
+            data: {
+                name,
+                value,
+            }
+        })
+        res.json(size);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+// Delete chosen size
+app.delete('/api/:sid/:uid/sizes/:sizeId', async (req, res)=>{
+    const storeId = req.params.sid;
+    const userId = req.params.uid;
+    const sizeId = req.params.sizeId;
+
+    try {
+        if(!storeId) {
+            res.status(404).json({
+                status: "Not found store id"
+            })
+
+            return;
+        }
+
+        if(!userId) {
+            res.status(404).json({
+                status: "Not found user id"
+            })
+
+            return;
+        }
+
+        const storeByUserId = await prismaDB.store.findFirst({
+            where: {
+                id: storeId,
+                userId
+            }
+        })
+
+        if(!storeByUserId) {
+            return;
+        }
+
+        const size = await prismaDB.size.deleteMany({
+            where: {
+                id: sizeId,
+            },
+        })
+
+        res.json(size);
+    } catch (err) {
+        console.log(err)
+    }
+})
 
 
 app.listen(port, () => {

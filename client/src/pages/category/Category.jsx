@@ -20,7 +20,7 @@ const Category = ()=>{
 
     const getBillboards = async ()=>{
         try{
-            const billboards = await axios.get(`http://localhost:3001/api/${params.sid}/${params.uid}/store-billboards/`)
+            const billboards = await axios.get(`http://localhost:3001/api/${params.sid}/${params.uid}/billboards/`)
             setBillboards(billboards.data)
         } catch (err) {
             console.log(err)

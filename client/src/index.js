@@ -18,6 +18,8 @@ import Billboards from "@/pages/billboards/Billboards";
 import Billboard from "@/pages/billboard/Billboard";
 import Categories from "@/pages/categories/Categories";
 import Category from "@/pages/category/Category";
+import Sizes from "@/pages/sizes/Sizes";
+import Size from "@/pages/size/Size";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -53,6 +55,8 @@ const ClerkWithRoutes = () =>{
                 <Route path='/billboards/:uid/:sid/:bid' element={<Billboard routing='path' path='/billboards/:uid/:sid/:bid'/>}/>
                 <Route path='/categories/:uid/:sid/' element={<Categories routing='path' path='/categories/:uid/:sid/'/>}/>
                 <Route path='/categories/:uid/:sid/:cid' element={<Category routing='path' path='/categories/:uid/:sid/:cid'/>}/>
+                <Route path='/sizes/:uid/:sid/' element={<Sizes routing='path' path='/sizes/:uid/:sid/'/>}/>
+                <Route path='/sizes/:uid/:sid/:sizeId' element={<Size routing='path' path='/sizes/:uid/:sid/:sizeId'/>}/>
             </Routes>
             <PopupProvider/>
         </ClerkProvider>
