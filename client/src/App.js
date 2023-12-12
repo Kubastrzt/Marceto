@@ -15,7 +15,7 @@ const App = ()=>{
         try {
             const response = await axios.get(`http://localhost:3001/api/user/${userId}/first-store`);
             if(response.data) {
-                navigate(`/dashboard/${userId}/${response.data.id}/`)
+                navigate(`/dashboard/${response.data.id}/`)
             }
             else {
                 navigate('/create-store');

@@ -12,7 +12,7 @@ const Colors = ()=>{
     const {userId} = useAuth();
     const fetchAllColors = async ()=>{
         try{
-            const response = await axios.get(`http://localhost:3001/api/${params.sid}/${userId}/colors`);
+            const response = await axios.get(`http://localhost:3001/api/${params.sid}/colors`);
             setAllColors(response.data);
         } catch (err) {
             console.log(err)

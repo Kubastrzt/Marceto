@@ -51,7 +51,7 @@ const ColorForm = ({initialData})=>{
                 success: 'Color deleted 👌',
                 error: 'Something went wrong 🤯'
             })
-            navigate(`/colors/${userId}/${params.sid}/`);
+            navigate(`/colors/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -76,7 +76,7 @@ const ColorForm = ({initialData})=>{
                     error: 'Something went wrong 🤯'
                 })
             }
-            navigate(`/colors/${userId}/${params.sid}/`);
+            navigate(`/colors/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {

@@ -49,7 +49,7 @@ const SizeForm = ({initialData})=>{
                 success: 'Size deleted 👌',
                 error: 'Something went wrong 🤯'
             })
-            navigate(`/sizes/${userId}/${params.sid}/`);
+            navigate(`/sizes/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -74,7 +74,7 @@ const SizeForm = ({initialData})=>{
                     error: 'Something went wrong 🤯'
                 })
             }
-            navigate(`/sizes/${userId}/${params.sid}/`);
+            navigate(`/sizes/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {

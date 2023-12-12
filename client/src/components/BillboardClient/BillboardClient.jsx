@@ -16,7 +16,7 @@ const BillboardClient = ({data})=>{
         <>
             <div className='flex items-center justify-between'>
                 <Heading title={`Billboards (${data ? data.length : '0'})`} description='Store billboards'/>
-                <Button onClick={()=>navigate(`/billboards/${params.uid}/${params.sid}/new`)}>
+                <Button onClick={()=>navigate(`/billboards/${params.sid}/new`)}>
                     <Plus className='mr-2 h-4 w-4'/>
                     Add new
                 </Button>

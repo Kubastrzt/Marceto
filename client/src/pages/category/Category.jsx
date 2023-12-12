@@ -11,7 +11,7 @@ const Category = ()=>{
 
     const getCategories = async ()=>{
         try{
-            const category = await axios.get(`http://localhost:3001/api/categories/${params.cid}/`)
+            const category = await axios.get(`http://localhost:3001/api/${params.sid}/categories/${params.cid}/`)
             setCategory(category.data)
         } catch (err) {
             console.log(err)
@@ -20,7 +20,7 @@ const Category = ()=>{
 
     const getBillboards = async ()=>{
         try{
-            const billboards = await axios.get(`http://localhost:3001/api/${params.sid}/${params.uid}/billboards/`)
+            const billboards = await axios.get(`http://localhost:3001/api/${params.sid}/billboards/`)
             setBillboards(billboards.data)
         } catch (err) {
             console.log(err)
@@ -31,6 +31,8 @@ const Category = ()=>{
         getCategories();
         getBillboards();
     },[params])
+
+    console.log(billboards);
 
     return(
         <>

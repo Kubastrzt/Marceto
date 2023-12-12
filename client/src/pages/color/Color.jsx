@@ -10,7 +10,7 @@ const Color = ()=>{
 
     const getColor = async ()=>{
         try{
-            const color = await axios.get(`http://localhost:3001/api/colors/${params.colorId}/`)
+            const color = await axios.get(`http://localhost:3001/api/${params.sid}/colors/${params.colorId}/`)
             setColor(color.data)
         } catch (err) {
             console.log(err)

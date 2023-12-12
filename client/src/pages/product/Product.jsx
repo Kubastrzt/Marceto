@@ -13,7 +13,7 @@ const Product = ()=>{
 
     const getProduct = async ()=>{
         try{
-            const product = await axios.get(`http://localhost:3001/api/products/${params.productId}/`)
+            const product = await axios.get(`http://localhost:3001/api/${params.sid}/products/${params.productId}/`)
             setProduct(product.data)
         } catch (err) {
             console.log(err)
@@ -22,7 +22,7 @@ const Product = ()=>{
 
     const getCategories = async ()=>{
         try{
-            const categories = await axios.get(`http://localhost:3001/api/${params.sid}/${params.uid}/categories/`)
+            const categories = await axios.get(`http://localhost:3001/api/${params.sid}/categories/`)
             setCategories(categories.data)
         } catch (err) {
             console.log(err)
@@ -30,7 +30,7 @@ const Product = ()=>{
     }
     const getSizes = async ()=>{
         try{
-            const sizes = await axios.get(`http://localhost:3001/api/${params.sid}/${params.uid}/sizes/`)
+            const sizes = await axios.get(`http://localhost:3001/api/${params.sid}/sizes/`)
             setSizes(sizes.data)
         } catch (err) {
             console.log(err)
@@ -39,7 +39,7 @@ const Product = ()=>{
 
     const getColors = async ()=>{
         try{
-            const colors = await axios.get(`http://localhost:3001/api/${params.sid}/${params.uid}/colors/`)
+            const colors = await axios.get(`http://localhost:3001/api/${params.sid}/colors/`)
             setColors(colors.data)
         } catch (err) {
             console.log(err)

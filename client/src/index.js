@@ -25,6 +25,7 @@ import Color from "@/pages/color/Color";
 import Products from "@/pages/products/Products";
 import Product from "@/pages/product/Product";
 import Orders from "@/pages/orders/Orders";
+import Auth from "./auth";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -52,21 +53,22 @@ const ClerkWithRoutes = () =>{
                     </>
                 }/>
                 <Route path='/create-store' element={<CreateStore routing='path' path='/create-store'/>}/>
+                <Route path='/autho' element={<Auth routing='path' path='/autho'/>}/>
                 <Route path='/sign-up/*' element={<SignUp routing='path' path='/sign-up'/>}/>
                 <Route path='/sign-in/*' element={<SignIn routing='path' path='/sign-in'/>}/>
-                <Route path='/dashboard/:uid/:sid/' element={<Dashboard routing='path' path='/dashboard/:uid/:sid/'/>}/>
-                <Route path='/settings/:uid/:sid/' element={<Settings routing='path' path='/settings/:uid/:sid/'/>}/>
-                <Route path='/billboards/:uid/:sid/' element={<Billboards routing='path' path='/billboards/:uid/:sid/'/>}/>
-                <Route path='/billboards/:uid/:sid/:bid' element={<Billboard routing='path' path='/billboards/:uid/:sid/:bid'/>}/>
-                <Route path='/categories/:uid/:sid/' element={<Categories routing='path' path='/categories/:uid/:sid/'/>}/>
-                <Route path='/categories/:uid/:sid/:cid' element={<Category routing='path' path='/categories/:uid/:sid/:cid'/>}/>
-                <Route path='/sizes/:uid/:sid/' element={<Sizes routing='path' path='/sizes/:uid/:sid/'/>}/>
-                <Route path='/sizes/:uid/:sid/:sizeId' element={<Size routing='path' path='/sizes/:uid/:sid/:sizeId'/>}/>
-                <Route path='/colors/:uid/:sid/' element={<Colors routing='path' path='/colors/:uid/:sid/'/>}/>
-                <Route path='/colors/:uid/:sid/:colorId' element={<Color routing='path' path='/colors/:uid/:sid/:colorId'/>}/>
-                <Route path='/products/:uid/:sid/' element={<Products routing='path' path='/products/:uid/:sid/'/>}/>
-                <Route path='/products/:uid/:sid/:productId' element={<Product routing='path' path='/products/:uid/:sid/:productId'/>}/>
-                <Route path='/orders/:uid/:sid/' element={<Orders routing='path' path='/orders/:uid/:sid/'/>}/>
+                <Route path='/dashboard/:sid/' element={<Dashboard routing='path' path='/dashboard/:sid/'/>}/>
+                <Route path='/settings/:sid/' element={<Settings routing='path' path='/settings/:sid/'/>}/>
+                <Route path='/billboards/:sid/' element={<Billboards routing='path' path='/billboards/:sid/'/>}/>
+                <Route path='/billboards/:sid/:bid' element={<Billboard routing='path' path='/billboards/:sid/:bid'/>}/>
+                <Route path='/categories/:sid/' element={<Categories routing='path' path='/categories/:sid/'/>}/>
+                <Route path='/categories/:sid/:cid' element={<Category routing='path' path='/categories/:sid/:cid'/>}/>
+                <Route path='/sizes/:sid/' element={<Sizes routing='path' path='/sizes/:sid/'/>}/>
+                <Route path='/sizes/:sid/:sizeId' element={<Size routing='path' path='/sizes/:sid/:sizeId'/>}/>
+                <Route path='/colors/:sid/' element={<Colors routing='path' path='/colors/:sid/'/>}/>
+                <Route path='/colors/:sid/:colorId' element={<Color routing='path' path='/colors/:sid/:colorId'/>}/>
+                <Route path='/products/:sid/' element={<Products routing='path' path='/products/:sid/'/>}/>
+                <Route path='/products/:sid/:productId' element={<Product routing='path' path='/products/:sid/:productId'/>}/>
+                <Route path='/orders/:sid/' element={<Orders routing='path' path='/orders/:sid/'/>}/>
             </Routes>
             <PopupProvider/>
         </ClerkProvider>

@@ -67,7 +67,7 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
                 success: 'Product deleted 👌',
                 error: 'Something went wrong 🤯'
             })
-            navigate(`/products/${userId}/${params.sid}/`);
+            navigate(`/products/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -92,7 +92,7 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
                     error: 'Something went wrong 🤯'
                 })
             }
-            navigate(`/products/${userId}/${params.sid}/`);
+            navigate(`/products/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {

@@ -32,7 +32,7 @@ export const ColorActions = ({data})=>{
                 success: 'Color deleted 👌',
                 error: 'Something went wrong 🤯'
             })
-            navigate(`/colors/${userId}/${params.sid}/`);
+            navigate(`/colors/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -56,7 +56,7 @@ export const ColorActions = ({data})=>{
                 <DropdownMenuLabel>
                     Actions
                 </DropdownMenuLabel>
-                <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/colors/${userId}/${params.sid}/${data.id}`)}>
+                <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/colors/${params.sid}/${data.id}`)}>
                     <Edit className='mr-2 h-4 w-4'/>
                     Edit
                 </DropdownMenuItem>

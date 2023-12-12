@@ -32,7 +32,7 @@ export const SizeActions = ({data})=>{
                 success: 'Size deleted 👌',
                 error: 'Something went wrong 🤯'
             })
-            navigate(`/sizes/${userId}/${params.sid}/`);
+            navigate(`/sizes/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -56,7 +56,7 @@ export const SizeActions = ({data})=>{
                 <DropdownMenuLabel>
                     Actions
                 </DropdownMenuLabel>
-                <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/sizes/${userId}/${params.sid}/${data.id}`)}>
+                <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/sizes/${params.sid}/${data.id}`)}>
                     <Edit className='mr-2 h-4 w-4'/>
                     Edit
                 </DropdownMenuItem>

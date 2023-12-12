@@ -32,7 +32,7 @@ export const ProductActions = ({data})=>{
                 success: 'Billboard deleted 👌',
                 error: 'Something went wrong 🤯'
             })
-            navigate(`/products/${userId}/${params.sid}/`);
+            navigate(`/products/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -56,7 +56,7 @@ export const ProductActions = ({data})=>{
                 <DropdownMenuLabel>
                     Actions
                 </DropdownMenuLabel>
-                <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/products/${userId}/${params.sid}/${data.id}`)}>
+                <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/products/${params.sid}/${data.id}`)}>
                     <Edit className='mr-2 h-4 w-4'/>
                     Edit
                 </DropdownMenuItem>

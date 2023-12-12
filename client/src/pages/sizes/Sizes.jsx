@@ -12,7 +12,7 @@ const Sizes = ()=>{
     const {userId} = useAuth();
     const fetchAllSizes = async ()=>{
         try{
-            const response = await axios.get(`http://localhost:3001/api/${params.sid}/${userId}/sizes`);
+            const response = await axios.get(`http://localhost:3001/api/${params.sid}/sizes`);
             setAllSizes(response.data);
         } catch (err) {
             console.log(err)

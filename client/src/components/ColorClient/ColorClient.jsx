@@ -16,7 +16,7 @@ const ColorClient = ({data})=>{
         <>
             <div className='flex items-center justify-between'>
                 <Heading title={`Colors (${data ? data.length : '0'})`} description='Store colors'/>
-                <Button onClick={()=>navigate(`/colors/${params.uid}/${params.sid}/new`)}>
+                <Button onClick={()=>navigate(`/colors/${params.sid}/new`)}>
                     <Plus className='mr-2 h-4 w-4'/>
                     Add new
                 </Button>

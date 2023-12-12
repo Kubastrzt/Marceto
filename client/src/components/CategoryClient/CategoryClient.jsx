@@ -16,7 +16,7 @@ const CategoryClient = ({data})=>{
         <>
             <div className='flex items-center justify-between'>
                 <Heading title={`Categories (${data ? data.length : '0'})`} description='Store categories'/>
-                <Button onClick={()=>navigate(`/categories/${params.uid}/${params.sid}/new`)}>
+                <Button onClick={()=>navigate(`/categories/${params.sid}/new`)}>
                     <Plus className='mr-2 h-4 w-4'/>
                     Add new
                 </Button>

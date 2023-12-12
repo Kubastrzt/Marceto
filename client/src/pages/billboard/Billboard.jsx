@@ -10,7 +10,7 @@ const Billboard = ()=>{
 
     const getBillboard = async ()=>{
         try{
-            const billboard = await axios.get(`http://localhost:3001/api/billboard/${params.bid}/`)
+            const billboard = await axios.get(`http://localhost:3001/api/${params.sid}/billboard/${params.bid}/`)
             setBillboard(billboard.data)
         } catch (err) {
             console.log(err)

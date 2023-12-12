@@ -50,7 +50,7 @@ const CategoryForm = ({billboards, initialData})=>{
                 success: 'Category deleted 👌',
                 error: 'Something went wrong 🤯'
             })
-            navigate(`/categories/${userId}/${params.sid}/`);
+            navigate(`/categories/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -75,7 +75,7 @@ const CategoryForm = ({billboards, initialData})=>{
                     error: 'Something went wrong 🤯'
                 })
             }
-            navigate(`/categories/${userId}/${params.sid}/`);
+            navigate(`/categories/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {

@@ -32,7 +32,7 @@ export const BillboardActions = ({data})=>{
                 success: 'Billboard deleted 👌',
                 error: 'Something went wrong 🤯'
             })
-            navigate(`/billboards/${userId}/${params.sid}/`);
+            navigate(`/billboards/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -56,7 +56,7 @@ export const BillboardActions = ({data})=>{
                 <DropdownMenuLabel>
                     Actions
                 </DropdownMenuLabel>
-                <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/billboards/${userId}/${params.sid}/${data.id}`)}>
+                <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/billboards/${params.sid}/${data.id}`)}>
                     <Edit className='mr-2 h-4 w-4'/>
                     Edit
                 </DropdownMenuItem>

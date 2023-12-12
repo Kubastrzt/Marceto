@@ -11,6 +11,7 @@ const Navigation = ()=>{
     const navigate = useNavigate();
     const {pathname} = useLocation();
     const {userId} = useAuth()
+    const { getToken } = useAuth();
 
     if(!userId) {
         navigate('/sign-in/');
@@ -18,7 +19,14 @@ const Navigation = ()=>{
 
     const getAvailableStores = async ()=>{
         try {
-            const response = await axios.get(`http://localhost:3001/api/${userId}/stores`);
+            const token = await getToken();
+            const response = await axios.get(`http://localhost:3001/api/stores`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                }
+            );
             setStores(response.data);
         } catch (error) {
             console.error('Axios Error:', error);
@@ -27,48 +35,48 @@ const Navigation = ()=>{
 
     useEffect(() => {
         getAvailableStores()
-    }, [userId]);
+    }, [getToken]);
 
     const routes = [
         {
-            href: `/dashboard/${params.uid}/${params.sid}/`,
+            href: `/dashboard/${params.sid}/`,
             label: 'Dashboard',
-            active: pathname === `/dashboard/${params.uid}/${params.sid}/`
+            active: pathname === `/dashboard/${params.sid}/`
         },
         {
-            href: `/billboards/${params.uid}/${params.sid}/`,
+            href: `/billboards/${params.sid}/`,
             label: 'Billboards',
-            active: pathname === `/billboards/${params.uid}/${params.sid}/`
+            active: pathname === `/billboards/${params.sid}/`
         },
         {
-            href: `/settings/${params.uid}/${params.sid}/`,
+            href: `/settings/${params.sid}/`,
             label: 'Settings',
-            active: pathname === `/settings/${params.uid}/${params.sid}/`
+            active: pathname === `/settings/${params.sid}/`
         },
         {
-            href: `/categories/${params.uid}/${params.sid}/`,
+            href: `/categories/${params.sid}/`,
             label: 'Categories',
-            active: pathname === `/categories/${params.uid}/${params.sid}/`
+            active: pathname === `/categories/${params.sid}/`
         },
         {
-            href: `/sizes/${params.uid}/${params.sid}/`,
+            href: `/sizes/${params.sid}/`,
             label: 'Sizes',
-            active: pathname === `/sizes/${params.uid}/${params.sid}/`
+            active: pathname === `/sizes/${params.sid}/`
         },
         {
-            href: `/colors/${params.uid}/${params.sid}/`,
+            href: `/colors/${params.sid}/`,
             label: 'Colors',
-            active: pathname === `/colors/${params.uid}/${params.sid}/`
+            active: pathname === `/colors/${params.sid}/`
         },
         {
-            href: `/products/${params.uid}/${params.sid}/`,
+            href: `/products/${params.sid}/`,
             label: 'Products',
-            active: pathname === `/products/${params.uid}/${params.sid}/`
+            active: pathname === `/products/${params.sid}/`
         },
         {
-            href: `/orders/${params.uid}/${params.sid}/`,
+            href: `/orders/${params.sid}/`,
             label: 'Orders',
-            active: pathname === `/orders/${params.uid}/${params.sid}/`
+            active: pathname === `/orders/${params.sid}/`
         }
     ]
     return(

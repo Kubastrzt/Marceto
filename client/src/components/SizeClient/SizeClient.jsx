@@ -16,7 +16,7 @@ const SizeClient = ({data})=>{
         <>
             <div className='flex items-center justify-between'>
                 <Heading title={`Sizes (${data ? data.length : '0'})`} description='Store sizes'/>
-                <Button onClick={()=>navigate(`/sizes/${params.uid}/${params.sid}/new`)}>
+                <Button onClick={()=>navigate(`/sizes/${params.sid}/new`)}>
                     <Plus className='mr-2 h-4 w-4'/>
                     Add new
                 </Button>

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { ClerkExpressWithAuth  } = require('@clerk/clerk-sdk-node');
 const prismaDB = require("./lib/database.js");
 
 const app = express();
@@ -59,12 +60,12 @@ app.get('/api/user/:id/:sid', async (req, res)=>{
     res.json(store);
 })
 
-app.get('/api/:id/stores', async (req, res)=>{
-    const userId = req.params.id;
+app.get('/api/stores',ClerkExpressWithAuth(), async (req, res)=>{
+    console.log(req.auth)
 
     const stores = await prismaDB.store.findMany({
         where: {
-            userId,
+            userId: req.auth.userId,
         },
     });
 
@@ -153,7 +154,7 @@ app.delete('/api/:sid/:uid', async (req, res)=>{
 
 
 // Get all billboards ordered desc
-app.get('/api/:sid/:uid/billboards', async (req, res)=>{
+app.get('/api/:sid/billboards', async (req, res)=>{
     const storeId = req.params.sid;
 
     const billboards = await prismaDB.billboard.findMany({
@@ -169,7 +170,7 @@ app.get('/api/:sid/:uid/billboards', async (req, res)=>{
 })
 
 // Get chosen billboard
-app.get('/api/billboard/:bid', async (req, res)=>{
+app.get('/api/:sid/billboard/:bid', async (req, res)=>{
     const billboardId = req.params.bid;
 
     const billboard = await prismaDB.billboard.findUnique({
@@ -360,7 +361,7 @@ app.delete('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
 })
 
 // Get all categories ordered desc that are including billboard
-app.get('/api/:sid/:uid/categories', async (req, res)=>{
+app.get('/api/:sid/categories', async (req, res)=>{
     const storeId = req.params.sid;
 
     const categories = await prismaDB.category.findMany({
@@ -379,7 +380,7 @@ app.get('/api/:sid/:uid/categories', async (req, res)=>{
 })
 
 // Get chosen category
-app.get('/api/categories/:cid', async (req, res)=>{
+app.get('/api/:sid/categories/:cid', async (req, res)=>{
     const categoryId = req.params.cid;
 
     const category = await prismaDB.category.findUnique({
@@ -570,7 +571,7 @@ app.delete('/api/:sid/:uid/categories/:cid', async (req, res)=>{
 })
 
 // Get all sizes ordered desc
-app.get('/api/:sid/:uid/sizes', async (req, res)=>{
+app.get('/api/:sid/sizes', async (req, res)=>{
     const storeId = req.params.sid;
 
     const sizes = await prismaDB.size.findMany({
@@ -586,7 +587,7 @@ app.get('/api/:sid/:uid/sizes', async (req, res)=>{
 })
 
 // Get chosen size
-app.get('/api/sizes/:sizeId', async (req, res)=>{
+app.get('/api/:sid/sizes/:sizeId', async (req, res)=>{
     const sizeId = req.params.sizeId;
 
     const size = await prismaDB.size.findUnique({
@@ -777,7 +778,7 @@ app.delete('/api/:sid/:uid/sizes/:sizeId', async (req, res)=>{
 })
 
 // Get all colors ordered desc
-app.get('/api/:sid/:uid/colors', async (req, res)=>{
+app.get('/api/:sid/colors', async (req, res)=>{
     const storeId = req.params.sid;
 
     const colors = await prismaDB.color.findMany({
@@ -793,7 +794,7 @@ app.get('/api/:sid/:uid/colors', async (req, res)=>{
 })
 
 // Get chosen color
-app.get('/api/colors/:colorId', async (req, res)=>{
+app.get('/api/:sid/colors/:colorId', async (req, res)=>{
     const colorId = req.params.colorId;
 
     const color = await prismaDB.color.findUnique({
@@ -986,7 +987,7 @@ app.delete('/api/:sid/:uid/colors/:colorId', async (req, res)=>{
 
 
 // Get all products
-app.get('/api/:sid/:uid/products', async (req, res)=>{
+app.get('/api/:sid/products', async (req, res)=>{
     const storeId = req.params.sid;
 
     const products = await prismaDB.product.findMany({
@@ -1007,7 +1008,7 @@ app.get('/api/:sid/:uid/products', async (req, res)=>{
 })
 
 // Get chosen product
-app.get('/api/products/:productId', async (req, res)=>{
+app.get('/api/:sid/products/:productId', async (req, res)=>{
     const productId = req.params.productId;
 
     const product = await prismaDB.product.findUnique({
@@ -1319,7 +1320,7 @@ app.delete('/api/:sid/:uid/products/:productId', async (req, res)=>{
 })
 
 // Get all orders ordered desc
-app.get('/api/:sid/:uid/orders', async (req, res)=>{
+app.get('/api/:sid/orders', async (req, res)=>{
     const storeId = req.params.sid;
 
     const orders = await prismaDB.order.findMany({

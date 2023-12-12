@@ -50,7 +50,7 @@ const BillboardForm = ({initialData})=>{
                 success: 'Billboard deleted 👌',
                 error: 'Something went wrong 🤯'
             })
-            navigate(`/billboards/${userId}/${params.sid}/`);
+            navigate(`/billboards/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -75,7 +75,7 @@ const BillboardForm = ({initialData})=>{
                     error: 'Something went wrong 🤯'
                 })
             }
-            navigate(`/billboards/${userId}/${params.sid}/`);
+            navigate(`/billboards/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {

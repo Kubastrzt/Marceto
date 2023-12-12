@@ -32,7 +32,7 @@ export const CategoryActions = ({data})=>{
                 success: 'Category deleted 👌',
                 error: 'Something went wrong 🤯'
             })
-            navigate(`/categories/${userId}/${params.sid}/`);
+            navigate(`/categories/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -56,7 +56,7 @@ export const CategoryActions = ({data})=>{
                 <DropdownMenuLabel>
                     Actions
                 </DropdownMenuLabel>
-                <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/categories/${userId}/${params.sid}/${data.id}`)}>
+                <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/categories/${params.sid}/${data.id}`)}>
                     <Edit className='mr-2 h-4 w-4'/>
                     Edit
                 </DropdownMenuItem>

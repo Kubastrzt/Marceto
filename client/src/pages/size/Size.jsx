@@ -10,7 +10,7 @@ const Size = ()=>{
 
     const getSize = async ()=>{
         try{
-            const size = await axios.get(`http://localhost:3001/api/sizes/${params.sizeId}/`)
+            const size = await axios.get(`http://localhost:3001/api/${params.sid}/sizes/${params.sizeId}/`)
             setSize(size.data)
         } catch (err) {
             console.log(err)
