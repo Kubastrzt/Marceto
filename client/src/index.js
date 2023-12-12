@@ -24,6 +24,7 @@ import Colors from "@/pages/colors/Colors";
 import Color from "@/pages/color/Color";
 import Products from "@/pages/products/Products";
 import Product from "@/pages/product/Product";
+import Orders from "@/pages/orders/Orders";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -65,6 +66,7 @@ const ClerkWithRoutes = () =>{
                 <Route path='/colors/:uid/:sid/:colorId' element={<Color routing='path' path='/colors/:uid/:sid/:colorId'/>}/>
                 <Route path='/products/:uid/:sid/' element={<Products routing='path' path='/products/:uid/:sid/'/>}/>
                 <Route path='/products/:uid/:sid/:productId' element={<Product routing='path' path='/products/:uid/:sid/:productId'/>}/>
+                <Route path='/orders/:uid/:sid/' element={<Orders routing='path' path='/orders/:uid/:sid/'/>}/>
             </Routes>
             <PopupProvider/>
         </ClerkProvider>

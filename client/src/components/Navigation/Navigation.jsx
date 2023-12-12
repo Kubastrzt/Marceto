@@ -64,6 +64,11 @@ const Navigation = ()=>{
             href: `/products/${params.uid}/${params.sid}/`,
             label: 'Products',
             active: pathname === `/products/${params.uid}/${params.sid}/`
+        },
+        {
+            href: `/orders/${params.uid}/${params.sid}/`,
+            label: 'Orders',
+            active: pathname === `/orders/${params.uid}/${params.sid}/`
         }
     ]
     return(

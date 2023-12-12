@@ -1318,6 +1318,28 @@ app.delete('/api/:sid/:uid/products/:productId', async (req, res)=>{
     }
 })
 
+// Get all orders ordered desc
+app.get('/api/:sid/:uid/orders', async (req, res)=>{
+    const storeId = req.params.sid;
+
+    const orders = await prismaDB.order.findMany({
+        where: {
+            storeId
+        },
+        include: {
+            orderItems: {
+                include: {
+                    product: true
+                }
+            }
+        },
+        orderBy: {
+            createdAt: 'desc'
+        }
+    })
+
+    res.json(orders);
+})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

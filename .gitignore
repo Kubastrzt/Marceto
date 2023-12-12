@@ -28,5 +28,10 @@ client/yarn-error.log*
 server/.env
 server/.env.local
 
+#misc frontend
+
+frontend/.env
+frontend/.env.local
+
 # JetBrains IDE
 .idea/*
