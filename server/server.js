@@ -61,8 +61,6 @@ app.get('/api/user/:id/:sid', async (req, res)=>{
 })
 
 app.get('/api/stores',ClerkExpressWithAuth(), async (req, res)=>{
-    console.log(req.auth)
-
     const stores = await prismaDB.store.findMany({
         where: {
             userId: req.auth.userId,
@@ -170,7 +168,7 @@ app.get('/api/:sid/billboards', async (req, res)=>{
 })
 
 // Get chosen billboard
-app.get('/api/:sid/billboard/:bid', async (req, res)=>{
+app.get('/api/:sid/billboards/:bid', async (req, res)=>{
     const billboardId = req.params.bid;
 
     const billboard = await prismaDB.billboard.findUnique({
@@ -988,23 +986,38 @@ app.delete('/api/:sid/:uid/colors/:colorId', async (req, res)=>{
 
 // Get all products
 app.get('/api/:sid/products', async (req, res)=>{
-    const storeId = req.params.sid;
+    try {
+        const storeId = req.params.sid;
+        const {searchParams} = new URL(`http://localhost:3001${req.url}`);
+        const categoryId = searchParams.get('categoryId') || undefined;
+        const colorId = searchParams.get('colorId') || undefined;
+        const sizeId = searchParams.get('sizeId') || undefined;
+        const isFeatured = searchParams.get('isFeatured');
 
-    const products = await prismaDB.product.findMany({
-        where: {
-            storeId
-        },
-        include: {
-          category: true,
-          size: true,
-          color: true,
-        },
-        orderBy: {
-            createdAt: 'desc'
-        }
-    })
+        const products = await prismaDB.product.findMany({
+            where: {
+                storeId,
+                categoryId,
+                colorId,
+                sizeId,
+                isFeatured: isFeatured ? true : undefined,
+                isArchived: false,
+            },
+            include: {
+                images: true,
+                category: true,
+                color: true,
+                size: true,
+            },
+            orderBy: {
+                createdAt: 'desc',
+            }
+        });
 
-    res.json(products);
+        res.json(products);
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 // Get chosen product

@@ -8,6 +8,7 @@ import {Check, ChevronsUpDown, PlusCircle, Store} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {PopoverContent} from "@/components/ui/popover";
 import {CommandInput, CommandSeparator, CommandList, Command, CommandEmpty, CommandGroup, CommandItem} from "@/components/ui/command";
+import {useAuth} from "@clerk/clerk-react";
 
 const Switch = ({className, items})=>{
     const [open, setOpen] = useState(false);
@@ -23,7 +24,7 @@ const Switch = ({className, items})=>{
     const activeStore = storesSet?.find(item=> item.value === params.sid);
     const onStoreChange = (store)=>{
         setOpen(false);
-        navigate(`/dashboard/${params.uid}/${store.value}`);
+        navigate(`/dashboard/${store.value}/`);
     }
 
     return(
