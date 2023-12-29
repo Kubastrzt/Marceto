@@ -15,16 +15,16 @@ const CategoryClient = ({data})=>{
     return(
         <>
             <div className='flex items-center justify-between'>
-                <Heading title={`Categories (${data ? data.length : '0'})`} description='Store categories'/>
+                <Heading title={`Kategorie (${data ? data.length : '0'})`} description='Kategorie produktów w sklepie'/>
                 <Button onClick={()=>navigate(`/categories/${params.sid}/new`)}>
                     <Plus className='mr-2 h-4 w-4'/>
-                    Add new
+                    Dodaj
                 </Button>
             </div>
             <Separator/>
             <DataTable columns={columnsCategories} data={data}/>
             <Separator/>
-            <Heading title='API' description='All endpoints'/>
+            <Heading title='API' description='Punkty dostępu'/>
             <ApiList entityIdName='categoryId' entityName='categories'/>
         </>
     );

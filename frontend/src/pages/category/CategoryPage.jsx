@@ -46,13 +46,13 @@ const CategoryPage = ()=>{
     return(
         <div className='bg-white'>
             <Container>
-                <Billboard data={category?.billboard}/>
+                <Billboard data={category?.banner}/>
                 <div className='px-4 sm:px-6 lg:px-8 pb-24'>
                     <div className='lg:grid lg:grid-cols-5 lg:gap-x-8'>
                         <MobileFilter sizes={sizes} colors={colors}/>
                         <div className='hidden lg:block'>
-                            <Filter valueKey="sizeId" name='Sizes' data={sizes}/>
-                            <Filter valueKey="colorId" name='Colors' data={colors}/>
+                            <Filter valueKey="sizeId" name='Rozmiary' data={sizes}/>
+                            <Filter valueKey="colorId" name='Kolory' data={colors}/>
                         </div>
                         <div className='mt-6 lg:col-span-4 lg:mt-0'>
                             {categoryProducts.length === 0 && <NoResults/>}

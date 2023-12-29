@@ -22,15 +22,17 @@ const Navbar = ()=>{
     }, []);
     return(
         <div className='border-b'>
-            <Container>
-                <div className='relative px-4 sm:px-6 lg:px-8 flex h-16 items-center'>
-                    <Link to='/' className='ml-4 flex lg:ml-0 gap-x-2'>
-                        <p className='font-bold text-xl'>STORE</p>
-                    </Link>
-                    <MainNav data={categories}/>
-                    <NavbarActions/>
-                </div>
-            </Container>
+            <section className="relative mx-auto">
+                <nav className="flex justify-between bg-white text-gray-950 w-full">
+                    <div className="px-5 xl:px-12 py-6 flex w-full items-center">
+                        <Link to='/' className='ml-4 flex lg:ml-0 gap-x-2'>
+                            <p className='font-bold text-xl'>Sklep odzieżowy</p>
+                        </Link>
+                        <MainNav data={categories}/>
+                        <NavbarActions/>
+                    </div>
+                </nav>
+            </section>
         </div>
     );
 }

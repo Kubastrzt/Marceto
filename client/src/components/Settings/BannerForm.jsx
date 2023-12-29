@@ -38,17 +38,17 @@ const BannerForm = ({initialData})=>{
     }, [initialData]);
 
 
-    const title = initialData ? "Edit banner" : "Create banner";
-    const description = initialData ? "Edit a banner" : "Add a new banner";
-    const action = initialData ? "Save changes" : "Create";
+    const title = initialData ? "Edytuj baner" : "Dodaj nowy baner";
+    const description = initialData ? "Zmień dotychczasowe ustawienia" : "Stwórz swój własny nowy baner";
+    const action = initialData ? "Zapisz zmiany" : "Stwórz";
 
     const onDelete = async ()=>{
         try {
             setLoading(true)
             await toast.promise(axios.delete(`http://localhost:3001/api/${params.sid}/${userId}/banners/${params.bid}`),{
-                pending: 'Deleting...',
-                success: 'Banner deleted 👌',
-                error: 'Something went wrong 🤯'
+                pending: 'Usuwanie...',
+                success: 'Baner usunięty 👌',
+                error: 'Coś poszło nie tak.. 🤯'
             })
             navigate(`/banners/${params.sid}/`);
         } catch (err) {
@@ -64,15 +64,15 @@ const BannerForm = ({initialData})=>{
             setLoading(true)
             if(initialData) {
                 await toast.promise(axios.patch(`http://localhost:3001/api/${params.sid}/${userId}/banners/${params.bid}`, data),{
-                    pending: 'Updating...',
-                    success: 'Banner updated 👌',
-                    error: 'Something went wrong 🤯'
+                    pending: 'Aktualizowanie...',
+                    success: 'Zaktualizowano baner 👌',
+                    error: 'Coś poszło nie tak.. 🤯'
                 })
             } else {
                 await toast.promise(axios.post(`http://localhost:3001/api/${params.sid}/${userId}/banners`, data),{
-                    pending: 'Creating...',
-                    success: 'Banner created 👌',
-                    error: 'Something went wrong 🤯'
+                    pending: 'Tworzenie...',
+                    success: 'Utworzono baner 👌',
+                    error: 'Coś poszło nie tak 🤯'
                 })
             }
             navigate(`/banners/${params.sid}/`);
@@ -103,7 +103,7 @@ const BannerForm = ({initialData})=>{
                         name="imageUrl"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Background image</FormLabel>
+                                <FormLabel>Tło</FormLabel>
                                 <FormControl>
                                     <ImageUpload
                                         value={field.value ? [field.value] : []}
@@ -124,7 +124,7 @@ const BannerForm = ({initialData})=>{
                                 <FormItem>
                                     <FormLabel>Label</FormLabel>
                                     <FormControl>
-                                        <Input disabled={loading} placeholder="Banner label" {...field} />
+                                        <Input disabled={loading} placeholder="Etykieta baneru" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

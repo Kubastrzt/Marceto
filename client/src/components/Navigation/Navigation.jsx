@@ -40,53 +40,57 @@ const Navigation = ()=>{
     const routes = [
         {
             href: `/dashboard/${params.sid}/`,
-            label: 'Dashboard',
+            label: 'Pulpit',
             active: pathname === `/dashboard/${params.sid}/`
         },
         {
             href: `/banners/${params.sid}/`,
-            label: 'Banners',
+            label: 'Banery',
             active: pathname === `/banners/${params.sid}/`
         },
         {
             href: `/settings/${params.sid}/`,
-            label: 'Settings',
+            label: 'Ustawienia',
             active: pathname === `/settings/${params.sid}/`
         },
         {
             href: `/categories/${params.sid}/`,
-            label: 'Categories',
+            label: 'Kategorie',
             active: pathname === `/categories/${params.sid}/`
         },
         {
             href: `/sizes/${params.sid}/`,
-            label: 'Sizes',
+            label: 'Rozmiary',
             active: pathname === `/sizes/${params.sid}/`
         },
         {
             href: `/colors/${params.sid}/`,
-            label: 'Colors',
+            label: 'Kolory',
             active: pathname === `/colors/${params.sid}/`
         },
         {
             href: `/products/${params.sid}/`,
-            label: 'Products',
+            label: 'Produkty',
             active: pathname === `/products/${params.sid}/`
         },
         {
             href: `/orders/${params.sid}/`,
-            label: 'Orders',
+            label: 'Zamówienia',
             active: pathname === `/orders/${params.sid}/`
         }
     ]
     return(
-        <nav className='flex gap-3 items-center justify-end w-full'>
-            <ul className='flex gap-3'>
-                {routes.map((route)=>(<li key={route.href} ><Link to={route.href} className={cn(route.active ? "font-bold" : "font-normal")}>{route.label}</Link></li>))}
-            </ul>
-            <Switch items={stores}/>
-            <UserButton/>
-        </nav>
+        <>
+            <div className='flex gap-4 bg-gray-950 px-8 py-4 justify-end'>
+                <Switch items={stores}/>
+                <UserButton/>
+            </div>
+            <nav className='flex gap-3 items-center justify-center w-full px-8 py-4 bg-gray-900'>
+                <ul className='flex gap-8'>
+                    {routes.map((route)=>(<li key={route.href} ><Link to={route.href} className={cn('text-lg text-white', route.active ? "font-bold" : "font-normal")}>{route.label}</Link></li>))}
+                </ul>
+            </nav>
+        </>
     );
 }
 

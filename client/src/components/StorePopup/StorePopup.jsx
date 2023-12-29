@@ -38,9 +38,9 @@ const StorePopup = ()=>{
 
         try {
             const response = await toast.promise(axios.post('http://localhost:3001/api/stores', newValues), {
-                pending: 'Creating store...',
-                success: 'Store created 👌 Redirecting...',
-                error: 'Something went wrong 🤯'
+                pending: 'Tworzenie sklepu...',
+                success: 'Utworzony sklep 👌 Przekierowanie...',
+                error: 'Coś poszło nie tak.. 🤯'
             });
 
             if(response) {
@@ -63,17 +63,17 @@ const StorePopup = ()=>{
                         name='name'
                         render={({field}) => (
                             <FormItem>
-                                <FormLabel>Name</FormLabel>
+                                <FormLabel>Nazwa</FormLabel>
                                 <FormControl>
-                                    <Input disabled={loading} placeholder={"Shop name"} {...field} />
+                                    <Input disabled={loading} placeholder={"Nazwa sklepu"} {...field} />
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
                         )}
                         />
                         <div className='pt-6 space-x-2 flex items-center justify-end w-full'>
-                            <Button disabled={loading} variant="outline" onClick={storePopup.onClose}>Cancel</Button>
-                            <Button disabled={loading} type="submit">Continue</Button>
+                            <Button disabled={loading} variant="outline" onClick={storePopup.onClose}>Anuluj</Button>
+                            <Button disabled={loading} type="submit">Kontynuuj</Button>
                         </div>
                     </form>
                 </Form>

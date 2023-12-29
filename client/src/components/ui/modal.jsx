@@ -14,13 +14,13 @@ export const Modal = ({isOpen, onClose, onConfirm, loading})=>{
     }
 
     return(
-        <Popup title='Are you sure?' description='This action cannot be undone!' isOpen={isOpen} onClose={onClose}>
+        <Popup title='Jesteś pewien?' description='Ta akcja nie może zostać cofnięta!' isOpen={isOpen} onClose={onClose}>
             <div className='flex items-center gap-3'>
             <Button disabled={loading} variant='outline' onClick={onClose}>
-                Cancel
+                Anuluj
             </Button>
             <Button disabled={loading} variant='destructive' onClick={onConfirm}>
-                Confirm
+                Potwierdź
             </Button>
             </div>
         </Popup>

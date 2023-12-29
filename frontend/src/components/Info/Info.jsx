@@ -24,19 +24,19 @@ const Info = ({data})=>{
             </div>
             <hr className='my-4'/>
             <div className='flex items-center gap-x-4'>
-                <h2 className='font-semibold text-black'>Size:</h2>
+                <h2 className='font-semibold text-black'>Rozmiar:</h2>
                 <div>
                     {data?.size?.name}
                 </div>
             </div>
             <div className='flex items-center gap-x-4'>
-                <h2 className='font-semibold text-black'>Color:</h2>
+                <h2 className='font-semibold text-black'>Kolor:</h2>
                 <div className='h-6 w-6 rounded-full border border-gray-600' style={{backgroundColor: data?.color?.value}}>
                 </div>
             </div>
             <div className='mt-10 flex items-center gap-x-3'>
                 <Button className='flex items-center gap-x-2' onClick={onCartAdd}>
-                    Add to cart
+                    Dodaj do koszyka
                     <ShoppingCart/>
                 </Button>
             </div>

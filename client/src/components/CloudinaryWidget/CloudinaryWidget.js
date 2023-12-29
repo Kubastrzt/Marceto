@@ -36,10 +36,10 @@ const CloudinaryUploadWidget = ({ onUpload, uploadPreset }) => {
     return (
         <Button type='button'
                 onClick={openWidget}
-                variant='outline'
+                variant='secondary'
                 className='flex gap-3'
         >
-            <Image/>Upload an image
+            <Image/>Prześlij zdjęcie
         </Button>
     );
 };

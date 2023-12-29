@@ -42,7 +42,7 @@ const ProductPage = ()=>{
                         </div>
                     </div>
                     <hr className='my-10'/>
-                    <ProductsList title='Related products' items={suggestedProducts}/>
+                    <ProductsList title='Powiązane produkty' items={suggestedProducts}/>
                 </div>
             </Container>
         </div>

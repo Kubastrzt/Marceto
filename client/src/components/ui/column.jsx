@@ -7,11 +7,11 @@ import ProductActions from "./product-action";
 export const columns = [
     {
         accessorKey: "label",
-        header: "Label",
+        header: "Etykieta",
     },
     {
         accessorKey: "createdAt",
-        header: "Date",
+        header: "Data",
     },
     {
         id: "actions",
@@ -22,16 +22,16 @@ export const columns = [
 export const columnsCategories = [
     {
         accessorKey: "name",
-        header: "Name",
+        header: "Nazwa",
     },
     {
         accessorKey: "banner",
-        header: "Banner",
+        header: "Baner",
         cell: ({row})=>row.original.bannerLabel,
     },
     {
         accessorKey: "createdAt",
-        header: "Date",
+        header: "Data",
     },
     {
         id: "actions",
@@ -42,15 +42,15 @@ export const columnsCategories = [
 export const columnsSize = [
     {
         accessorKey: "name",
-        header: "Name",
+        header: "Nazwa",
     },
     {
         accessorKey: "value",
-        header: "Value",
+        header: "Wartość",
     },
     {
         accessorKey: "createdAt",
-        header: "Date",
+        header: "Data",
     },
     {
         id: "actions",
@@ -61,11 +61,11 @@ export const columnsSize = [
 export const columnsColor = [
     {
         accessorKey: "name",
-        header: "Name",
+        header: "Nazwa",
     },
     {
         accessorKey: "value",
-        header: "Value",
+        header: "Wartość",
         cell: ({row})=>(<div className='flex items-center gap-x-2'>
             {row.original.value}
             <div className='h-6 w-6 rounded-full border' style={{backgroundColor: row.original.value}}/>
@@ -73,7 +73,7 @@ export const columnsColor = [
     },
     {
         accessorKey: "createdAt",
-        header: "Date",
+        header: "Data",
     },
     {
         id: "actions",
@@ -84,31 +84,31 @@ export const columnsColor = [
 export const columnsProduct = [
     {
         accessorKey: "name",
-        header: "Name",
+        header: "Nazwa",
     },
     {
         accessorKey: "isArchived",
-        header: "Archived",
+        header: "Zarchiwizowany",
     },
     {
         accessorKey: "isFeatured",
-        header: "Featured",
+        header: "Wyróżniony",
     },
     {
         accessorKey: "price",
-        header: "Price",
+        header: "Cena",
     },
     {
         accessorKey: "category",
-        header: "Category",
+        header: "Kategoria",
     },
     {
         accessorKey: "size",
-        header: "Size",
+        header: "Rozmiar",
     },
     {
         accessorKey: "color",
-        header: "Color",
+        header: "Kolor",
         cell: ({row})=> (
           <div className='flex items-center gap-x-2'>
               {row.original.color}
@@ -118,7 +118,7 @@ export const columnsProduct = [
     },
     {
         accessorKey: "createdAt",
-        header: "Date",
+        header: "Data",
     },
     {
         id: "actions",
@@ -129,26 +129,26 @@ export const columnsProduct = [
 export const columnsOrder = [
     {
         accessorKey: "products",
-        header: "Products",
+        header: "Produkty",
     },
     {
         accessorKey: "phone",
-        header: "Phone",
+        header: "Numer",
     },
     {
         accessorKey: "address",
-        header: "Address",
+        header: "Adres",
     },
     {
         accessorKey: "totalPrice",
-        header: "Total price",
+        header: "Cena",
     },
     {
         accessorKey: "isPaid",
-        header: "Paid",
+        header: "Zapłacono",
     },
     {
         accessorKey: "createdAt",
-        header: "Date",
+        header: "Data",
     }
 ]

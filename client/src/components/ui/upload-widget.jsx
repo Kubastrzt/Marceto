@@ -19,7 +19,7 @@ export const UploadWidget = ()=>{
 
     return (
         <Button onClick={()=>widgetRef.current.open()} variant='outline' className='flex gap-3'>
-            <Image/>Upload an image
+            <Image/>Prześlij zdjęcie
         </Button>
     )
 }

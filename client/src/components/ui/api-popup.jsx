@@ -8,8 +8,8 @@ import {Button} from "./button";
 import {toast} from "react-toastify";
 
 const textMap = {
-    public: 'Public',
-    admin: 'Admin',
+    public: 'Publiczny',
+    admin: 'Administrator',
 };
 
 const variantMap = {
@@ -24,15 +24,15 @@ const ApiPopup = ({title,description,variant = 'public'})=>{
     }
 
     return(
-        <Alert>
+        <Alert className='bg-gray-700 text-white border-black'>
             <Server className='h-4 w-4'/>
             <AlertTitle className='flex items-center gap-x-2'>
                 {title}
                 <Badge variant={variantMap[variant]}>{textMap[variant]}</Badge>
             </AlertTitle>
-            <AlertDescription className='mt-4 flex items-center justify-between'>
-                <code className='relative rounded bg-muted px-[0.3rem] font-mono py-[0.2rem] text-sm font-semibold'>{description}</code>
-                <Button variant='outline' size='icon' onClick={()=>onCopy(description)}>
+            <AlertDescription className='mt-4 flex items-center justify-between bg-gray-700 rounded'>
+                <code className='relative rounded bg-900 px-[0.3rem] font-mono py-[0.2rem] text-sm font-semibold'>{description}</code>
+                <Button variant='outline' className='bg-gray-950 border-black' size='icon' onClick={()=>onCopy(description)}>
                     <Copy className='h-4 w-4'/>
                 </Button>
             </AlertDescription>

@@ -30,8 +30,8 @@ const Switch = ({className, items})=>{
     return(
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-                <Button variant="outline" size="sm" role="combobox" aria-expanded={open} aria-label="Select a store" className={cn("w-[200px] justify-between", className)}>
-                    <Store className="mr-2 h-4 w-4"/>
+                <Button variant="secondary" size="sm" role="combobox" aria-expanded={open} aria-label="Select a store" className={cn("w-[200px] text-white justify-between bg-pink-600 hover:bg-pink-400", className)}>
+                    <Store className="mr-2 h-4 w-4 text-white"/>
                     {activeStore?.label}
                     <ChevronsUpDown className='ml-auto h-4 w-4 shrink-0 opacity-50'/>
                 </Button>
@@ -39,9 +39,9 @@ const Switch = ({className, items})=>{
             <PopoverContent className='w-[200] p-0'>
                 <Command>
                     <CommandList>
-                        <CommandInput placeholder="Search store.."/>
-                        <CommandEmpty>No store found</CommandEmpty>
-                        <CommandGroup heading="Stores">
+                        <CommandInput placeholder="Wyszukaj sklep.."/>
+                        <CommandEmpty>Nie znaleziono.</CommandEmpty>
+                        <CommandGroup heading="Sklepy">
                             {storesSet?.map((store)=>(
                                 <CommandItem key={store.value} onSelect={()=>onStoreChange(store)} className="text-sm">{store.label}<Check className={cn("ml-auto h-4 w-4", activeStore?.value === store.value ? "opacity-100" : "opacity-0")}/></CommandItem>
                             ))}
@@ -52,7 +52,7 @@ const Switch = ({className, items})=>{
                         <CommandGroup>
                             <CommandItem onSelect={()=>{setOpen(false); storePopup.onOpen();}}>
                                 <PlusCircle className='mr-2 h-5 w-5'/>
-                                Create Store
+                                Stwórz sklep
                             </CommandItem>
                         </CommandGroup>
                     </CommandList>

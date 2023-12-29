@@ -38,17 +38,17 @@ const CategoryForm = ({banners, initialData})=>{
     }, [initialData]);
 
 
-    const title = initialData ? "Edit category" : "Create category";
-    const description = initialData ? "Edit a category" : "Add a new category";
-    const action = initialData ? "Save changes" : "Create";
+    const title = initialData ? "Edytuj kategorie" : "Stwórz kategorie";
+    const description = initialData ? "Edit bieżącą kategorie" : "Dodaj nową kategorie";
+    const action = initialData ? "Zapisz zmiany" : "Stwórz";
 
     const onDelete = async ()=>{
         try {
             setLoading(true)
             await toast.promise(axios.delete(`http://localhost:3001/api/${params.sid}/${userId}/categories/${params.cid}`),{
-                pending: 'Deleting...',
-                success: 'Category deleted 👌',
-                error: 'Something went wrong 🤯'
+                pending: 'Usuwanie...',
+                success: 'Kategoria została usunięta 👌',
+                error: 'Coś poszło nie tak.. 🤯'
             })
             navigate(`/categories/${params.sid}/`);
         } catch (err) {
@@ -64,15 +64,15 @@ const CategoryForm = ({banners, initialData})=>{
             setLoading(true)
             if(initialData) {
                 await toast.promise(axios.patch(`http://localhost:3001/api/${params.sid}/${userId}/categories/${params.cid}`, data),{
-                    pending: 'Updating...',
-                    success: 'Category updated 👌',
-                    error: 'Something went wrong 🤯'
+                    pending: 'Aktualizowanie...',
+                    success: 'Kategoria została zaktualizowana 👌',
+                    error: 'Coś poszło nie tak.. 🤯'
                 })
             } else {
                 await toast.promise(axios.post(`http://localhost:3001/api/${params.sid}/${userId}/categories`, data),{
-                    pending: 'Creating...',
-                    success: 'Category created 👌',
-                    error: 'Something went wrong 🤯'
+                    pending: 'Tworzenie...',
+                    success: 'Kategoria została stworzona 👌',
+                    error: 'Coś poszło nie tak.. 🤯'
                 })
             }
             navigate(`/categories/${params.sid}/`);
@@ -104,9 +104,9 @@ const CategoryForm = ({banners, initialData})=>{
                             name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Label</FormLabel>
+                                    <FormLabel>Nazwa</FormLabel>
                                     <FormControl>
-                                        <Input disabled={loading} placeholder="Category name" {...field} />
+                                        <Input disabled={loading} placeholder="Nazwa kategorii" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -117,11 +117,11 @@ const CategoryForm = ({banners, initialData})=>{
                             name="bannerId"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Banner</FormLabel>
+                                    <FormLabel>Baner</FormLabel>
                                     <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                                         <FormControl>
                                             <SelectTrigger>
-                                                <SelectValue defaultValue={field.value} placeholder='Select a banner'/>
+                                                <SelectValue defaultValue={field.value} placeholder='Wybierz baner' className='bg-gray-700'/>
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>

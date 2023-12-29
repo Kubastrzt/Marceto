@@ -20,14 +20,14 @@ export const DataTable = ({ columns, data }) => {
 
     return (
         <div>
-            <div className="rounded-md border">
+            <div className="rounded-md border overflow-hidden border-black">
             <Table>
-                <TableHeader>
+                <TableHeader className='bg-gray-900 pointer-events-none'>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => {
                                 return (
-                                    <TableHead key={header.id}>
+                                    <TableHead key={header.id} className='text-white'>
                                         {header.isPlaceholder
                                             ? null
                                             : flexRender(
@@ -46,6 +46,7 @@ export const DataTable = ({ columns, data }) => {
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
+                                className='bg-gray-500'
                             >
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell key={cell.id}>
@@ -57,7 +58,7 @@ export const DataTable = ({ columns, data }) => {
                     ) : (
                         <TableRow>
                             <TableCell colSpan={columns.length} className="h-24 text-center">
-                                No results.
+                                Brak wyników.
                             </TableCell>
                         </TableRow>
                     )}
@@ -67,19 +68,21 @@ export const DataTable = ({ columns, data }) => {
             <div className="flex items-center justify-end space-x-2 py-4">
                 <Button
                     variant="outline"
+                    className='disabled:bg-gray-500'
                     size="sm"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}
                 >
-                    Previous
+                    Poprzednia
                 </Button>
                 <Button
                     variant="outline"
+                    className='disabled:bg-gray-500'
                     size="sm"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}
                 >
-                    Next
+                    Następna
                 </Button>
             </div>
         </div>

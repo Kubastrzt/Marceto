@@ -39,17 +39,17 @@ const ColorForm = ({initialData})=>{
     }, [initialData]);
 
 
-    const title = initialData ? "Edit color" : "Create color";
-    const description = initialData ? "Edit a color" : "Add a new color";
-    const action = initialData ? "Save changes" : "Create";
+    const title = initialData ? "Edytuj kolor" : "Stwórz kolor";
+    const description = initialData ? "Edytuj bieżący kolor" : "Dodaj nowy kolor";
+    const action = initialData ? "Zapisz zmiany" : "Stwórz";
 
     const onDelete = async ()=>{
         try {
             setLoading(true)
             await toast.promise(axios.delete(`http://localhost:3001/api/${params.sid}/${userId}/colors/${params.colorId}`),{
-                pending: 'Deleting...',
-                success: 'Color deleted 👌',
-                error: 'Something went wrong 🤯'
+                pending: 'Usuwanie...',
+                success: 'Kolor usunięty 👌',
+                error: 'Coś poszło nie tak.. 🤯'
             })
             navigate(`/colors/${params.sid}/`);
         } catch (err) {
@@ -65,15 +65,15 @@ const ColorForm = ({initialData})=>{
             setLoading(true)
             if(initialData) {
                 await toast.promise(axios.patch(`http://localhost:3001/api/${params.sid}/${userId}/colors/${params.colorId}`, data),{
-                    pending: 'Updating...',
-                    success: 'Color updated 👌',
-                    error: 'Something went wrong 🤯'
+                    pending: 'Aktualizowanie...',
+                    success: 'Kolor zaktualizowany 👌',
+                    error: 'Coś poszło nie tak.. 🤯'
                 })
             } else {
                 await toast.promise(axios.post(`http://localhost:3001/api/${params.sid}/${userId}/colors`, data),{
-                    pending: 'Creating...',
-                    success: 'Color created 👌',
-                    error: 'Something went wrong 🤯'
+                    pending: 'Tworzenie...',
+                    success: 'Kolor stworzony 👌',
+                    error: 'Coś poszło nie tak.. 🤯'
                 })
             }
             navigate(`/colors/${params.sid}/`);
@@ -105,9 +105,9 @@ const ColorForm = ({initialData})=>{
                             name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel>Nazwa</FormLabel>
                                     <FormControl>
-                                        <Input disabled={loading} placeholder="Color name" {...field} />
+                                        <Input disabled={loading} placeholder="Nazwa koloru" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -118,10 +118,10 @@ const ColorForm = ({initialData})=>{
                             name="value"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Value</FormLabel>
+                                    <FormLabel>Wartość</FormLabel>
                                     <FormControl>
                                         <div className='flex items-center gap-x-4'>
-                                            <Input disabled={loading} placeholder="Color value" {...field} />
+                                            <Input disabled={loading} placeholder="#44ffaa" {...field} />
                                             <div className='border p-3' style={{backgroundColor: field.value}}/>
                                         </div>
                                     </FormControl>

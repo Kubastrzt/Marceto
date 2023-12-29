@@ -15,16 +15,16 @@ const ColorClient = ({data})=>{
     return(
         <>
             <div className='flex items-center justify-between'>
-                <Heading title={`Colors (${data ? data.length : '0'})`} description='Store colors'/>
+                <Heading title={`Kolory (${data ? data.length : '0'})`} description='Dostępne kolory w sklepie'/>
                 <Button onClick={()=>navigate(`/colors/${params.sid}/new`)}>
                     <Plus className='mr-2 h-4 w-4'/>
-                    Add new
+                    Dodaj nowy
                 </Button>
             </div>
             <Separator/>
             <DataTable columns={columnsColor} data={data}/>
             <Separator/>
-            <Heading title='API' description='All endpoints'/>
+            <Heading title='API' description='Punkty dostępu'/>
             <ApiList entityIdName='colorId' entityName='colors'/>
         </>
     );

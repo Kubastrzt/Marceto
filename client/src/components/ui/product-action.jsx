@@ -28,9 +28,9 @@ export const ProductActions = ({data})=>{
         try {
             setLoading(true)
             await toast.promise(axios.delete(`http://localhost:3001/api/${params.sid}/${userId}/products/${data.id}`),{
-                pending: 'Deleting...',
-                success: 'Banner deleted 👌',
-                error: 'Something went wrong 🤯'
+                pending: 'Usuwanie...',
+                success: 'Produkt został usunięty 👌',
+                error: 'Coś poszło nie tak.. 🤯'
             })
             navigate(`/products/${params.sid}/`);
         } catch (err) {
@@ -47,26 +47,26 @@ export const ProductActions = ({data})=>{
             <ToastContainer/>
             <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant='ghost' className='h-8 w-8 p-0'>
-                    <span className='sr-only'>Open menu</span>
+                <Button variant='ghost' className='h-8 w-8 p-0 bg-gray-700'>
+                    <span className='sr-only'>Otwórz menu</span>
                     <MoreHorizontal className='h-4 w-4'/>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className='bg-gray-700 text-white'>
                 <DropdownMenuLabel>
-                    Actions
+                    Akcje
                 </DropdownMenuLabel>
                 <DropdownMenuItem className='cursor-pointer' onClick={()=>navigate(`/products/${params.sid}/${data.id}`)}>
                     <Edit className='mr-2 h-4 w-4'/>
-                    Edit
+                    Edytuj
                 </DropdownMenuItem>
                 <DropdownMenuItem className='cursor-pointer' onClick={()=>onCopy(data.id)}>
                     <Copy className='mr-2 h-4 w-4'/>
-                    Copy ID
+                    Kopiuj
                 </DropdownMenuItem>
                 <DropdownMenuItem className='cursor-pointer' onClick={()=>setOpen(true)}>
                     <Trash className='mr-2 h-4 w-4'/>
-                    Delete
+                    Usuń
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

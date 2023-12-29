@@ -15,16 +15,16 @@ const SizeClient = ({data})=>{
     return(
         <>
             <div className='flex items-center justify-between'>
-                <Heading title={`Sizes (${data ? data.length : '0'})`} description='Store sizes'/>
+                <Heading title={`Rozmiary (${data ? data.length : '0'})`} description='Dostępne w sklepie rozmiary'/>
                 <Button onClick={()=>navigate(`/sizes/${params.sid}/new`)}>
                     <Plus className='mr-2 h-4 w-4'/>
-                    Add new
+                    Dodaj nowy
                 </Button>
             </div>
             <Separator/>
             <DataTable columns={columnsSize} data={data}/>
             <Separator/>
-            <Heading title='API' description='All endpoints'/>
+            <Heading title='API' description='Punkty dostępu'/>
             <ApiList entityIdName='sizeId' entityName='sizes'/>
         </>
     );

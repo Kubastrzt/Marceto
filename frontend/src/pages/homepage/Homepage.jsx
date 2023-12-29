@@ -9,15 +9,12 @@ import ProductsList from "../../components/ProductsList/ProductsList";
 const Homepage = ()=>{
     const [billboard, setBillboard] = useState({});
     const [products, setProducts] = useState([]);
-    const [test, setTest] = useState([]);
 
     useEffect(() => {
         const fetchBillboard = async () => {
             try {
-                const result = await getBillboard("e76d9062-ac8b-4edc-8435-70e8290b1ad3");
-                const result2 = await getBillboards();
+                const result = await getBillboard("e2df01b0-202c-4034-9b1e-f90d2855fd10");
                 setBillboard(result);
-                setTest(result2);
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -36,14 +33,12 @@ const Homepage = ()=>{
         fetchProducts()
     }, []);
 
-    console.log(test);
-
     return(
         <Container>
             <div className='space-y-10 pb-10'>
                 <Billboard data={billboard}/>
                 <div className='flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8'>
-                    <ProductsList title="Featured Products" items={products}/>
+                    <ProductsList title="Wyróżnione produkty" items={products}/>
                 </div>
             </div>
         </Container>

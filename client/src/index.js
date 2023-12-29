@@ -25,7 +25,6 @@ import Color from "@/pages/color/Color";
 import Products from "@/pages/products/Products";
 import Product from "@/pages/product/Product";
 import Orders from "@/pages/orders/Orders";
-import Auth from "./auth";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -53,7 +52,6 @@ const ClerkWithRoutes = () =>{
                     </>
                 }/>
                 <Route path='/create-store' element={<CreateStore routing='path' path='/create-store'/>}/>
-                <Route path='/autho' element={<Auth routing='path' path='/autho'/>}/>
                 <Route path='/sign-up/*' element={<SignUp routing='path' path='/sign-up'/>}/>
                 <Route path='/sign-in/*' element={<SignIn routing='path' path='/sign-in'/>}/>
                 <Route path='/dashboard/:sid/' element={<Dashboard routing='path' path='/dashboard/:sid/'/>}/>
@@ -77,7 +75,7 @@ const ClerkWithRoutes = () =>{
 
 root.render(
   <BrowserRouter>
-      <ClerkWithRoutes />
+        <ClerkWithRoutes />
   </BrowserRouter>
 );
 

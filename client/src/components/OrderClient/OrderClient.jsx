@@ -7,7 +7,7 @@ import {columnsOrder} from "@/components/ui/column";
 const OrderClient = ({data})=>{
     return(
         <>
-            <Heading title={`Orders (${data ? data.length : '0'})`} description='Store orders'/>
+            <Heading title={`Zamówienia (${data ? data.length : '0'})`} description='Lista zamówień klientów'/>
             <Separator/>
             <DataTable columns={columnsOrder} data={data}/>
         </>

@@ -36,9 +36,9 @@ const SettingsForm = ({data})=>{
         try {
             setLoading(true)
             await toast.promise(axios.delete(`http://localhost:3001/api/${params.sid}/${userId}`),{
-                pending: 'Deleting...',
-                success: 'Store deleted 👌',
-                error: 'Something went wrong 🤯'
+                pending: 'Usuwanie...',
+                success: 'Sklep usunięty 👌',
+                error: 'Coś poszło nie tak.. 🤯'
             })
             navigate('/');
         } catch (err) {
@@ -52,9 +52,9 @@ const SettingsForm = ({data})=>{
         try {
             setLoading(true)
             await toast.promise(axios.patch(`http://localhost:3001/api/${params.sid}/${userId}`, data),{
-                pending: 'Updating...',
-                success: 'Store name updated 👌',
-                error: 'Something went wrong 🤯'
+                pending: 'Aktualizowanie...',
+                success: 'Nazwa sklepu została zaktualizowana 👌',
+                error: 'Coś poszło nie tak.. 🤯'
             })
             navigate(0);
         } catch (err) {
@@ -69,7 +69,7 @@ const SettingsForm = ({data})=>{
             <ToastContainer/>
             <Modal isOpen={open} onClose={()=>setOpen(false)} onConfirm={onDelete} loading={loading}/>
             <div className='flex items-center justify-between'>
-                <Heading title='Settings' description='Store settings'/>
+                <Heading title='Ustawienia' description='Zarządzaj sklepem'/>
                 <Button disabled={loading} variant='destructive' size='sm' onClick={()=>{setOpen(true)}}>
                     <Trash className='h-4 w-4'/>
                 </Button>
@@ -80,15 +80,15 @@ const SettingsForm = ({data})=>{
                     <div className='grid grid-cols-3 gap-8'>
                         <FormField controll={form.control} name='name' render={({field})=>(
                             <FormItem>
-                                <FormLabel>Name</FormLabel>
+                                <FormLabel>Nazwa sklepu</FormLabel>
                                 <FormControl>
-                                    <Input disabled={loading} placeholder="Store name" {...field}/>
+                                    <Input disabled={loading} placeholder="Wprowadź nową nazwę" {...field}/>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
                         )}/>
                     </div>
-                    <Button disabled={loading} type='submit'>Save changes</Button>
+                    <Button disabled={loading} type='submit'>Zapisz zmiany</Button>
                 </form>
             </Form>
             <Separator/>

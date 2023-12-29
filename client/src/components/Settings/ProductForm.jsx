@@ -45,7 +45,7 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
         } : {
             name: '',
             images: [],
-            price: 0,
+            price: null,
             categoryId: '',
             colorId: '',
             sizeId: '',
@@ -55,17 +55,17 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
     }, [initialData]);
 
 
-    const title = initialData ? "Edit product" : "Create product";
-    const description = initialData ? "Edit a product" : "Add a new product";
-    const action = initialData ? "Save changes" : "Create";
+    const title = initialData ? "Edytuj produkt" : "Stwórz produkt";
+    const description = initialData ? "Edytuj bieżący produkt" : "Dodaj nowy produkt";
+    const action = initialData ? "Zapisz zmiany" : "Stwórz";
 
     const onDelete = async ()=>{
         try {
             setLoading(true)
             await toast.promise(axios.delete(`http://localhost:3001/api/${params.sid}/${userId}/products/${params.productId}`),{
-                pending: 'Deleting...',
-                success: 'Product deleted 👌',
-                error: 'Something went wrong 🤯'
+                pending: 'Usuwanie...',
+                success: 'Produkt usunięty 👌',
+                error: 'Coś poszło nie tak.. 🤯'
             })
             navigate(`/products/${params.sid}/`);
         } catch (err) {
@@ -81,15 +81,15 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
             setLoading(true)
             if(initialData) {
                 await toast.promise(axios.patch(`http://localhost:3001/api/${params.sid}/${userId}/products/${params.productId}`, data),{
-                    pending: 'Updating...',
-                    success: 'Product updated 👌',
-                    error: 'Something went wrong 🤯'
+                    pending: 'Aktualizowanie...',
+                    success: 'Produkt zaktualizowany 👌',
+                    error: 'Coś poszło nie tak.. 🤯'
                 })
             } else {
                 await toast.promise(axios.post(`http://localhost:3001/api/${params.sid}/${userId}/products`, data),{
-                    pending: 'Creating...',
-                    success: 'Product created 👌',
-                    error: 'Something went wrong 🤯'
+                    pending: 'Tworzenie...',
+                    success: 'Produkt został stworzony 👌',
+                    error: 'Coś poszło nie tak.. 🤯'
                 })
             }
             navigate(`/products/${params.sid}/`);
@@ -120,7 +120,7 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
                         name="images"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Images</FormLabel>
+                                <FormLabel>Zdjęcia</FormLabel>
                                 <FormControl>
                                     <ImageUpload
                                         value={field.value ? field.value.map((image)=>image.url) : []}
@@ -142,9 +142,9 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
                             name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel>Nazwa</FormLabel>
                                     <FormControl>
-                                        <Input disabled={loading} placeholder="Product name" {...field} />
+                                        <Input disabled={loading} placeholder="Nazwa produktu" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -155,9 +155,9 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
                             name="price"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Price</FormLabel>
+                                    <FormLabel>Cena</FormLabel>
                                     <FormControl>
-                                        <Input type="number" disabled={loading} placeholder="0.99" {...field} />
+                                        <Input type="number" disabled={loading} placeholder="24.99" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -168,11 +168,11 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
                             name="categoryId"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Category</FormLabel>
+                                    <FormLabel>Kategoria</FormLabel>
                                     <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                                         <FormControl>
                                             <SelectTrigger>
-                                                <SelectValue defaultValue={field.value} placeholder='Select a category'/>
+                                                <SelectValue defaultValue={field.value} placeholder='Wybierz kategorie'/>
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
@@ -192,11 +192,11 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
                             name="sizeId"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Category</FormLabel>
+                                    <FormLabel>Rozmiar</FormLabel>
                                     <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                                         <FormControl>
                                             <SelectTrigger>
-                                                <SelectValue defaultValue={field.value} placeholder='Select a size'/>
+                                                <SelectValue defaultValue={field.value} placeholder='Wybierz rozmiar'/>
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
@@ -216,11 +216,11 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
                             name="colorId"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Category</FormLabel>
+                                    <FormLabel>Kolor</FormLabel>
                                     <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                                         <FormControl>
                                             <SelectTrigger>
-                                                <SelectValue defaultValue={field.value} placeholder='Select a color'/>
+                                                <SelectValue defaultValue={field.value} placeholder='Wybierz kolor'/>
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
@@ -248,10 +248,10 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
                                     </FormControl>
                                     <div className='space-y-1 leading-none'>
                                         <FormLabel>
-                                            Featured
+                                            Wyróżniony
                                         </FormLabel>
                                         <FormDescription>
-                                            This product will be in featured collection
+                                            Ten produkt pojawi się w wyróżnionej kolekcji
                                         </FormDescription>
                                     </div>
                                 </FormItem>
@@ -270,10 +270,10 @@ const ProductForm = ({initialData, sizes, categories, colors})=>{
                                     </FormControl>
                                     <div className='space-y-1 leading-none'>
                                         <FormLabel>
-                                            Archived
+                                            Zarchiwizowany
                                         </FormLabel>
                                         <FormDescription>
-                                            This product will not be present in store
+                                            Ten produkt nie będzie dostępny w sklepie
                                         </FormDescription>
                                     </div>
                                 </FormItem>

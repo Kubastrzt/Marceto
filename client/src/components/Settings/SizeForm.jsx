@@ -45,9 +45,9 @@ const SizeForm = ({initialData})=>{
         try {
             setLoading(true)
             await toast.promise(axios.delete(`http://localhost:3001/api/${params.sid}/${userId}/sizes/${params.sizeId}`),{
-                pending: 'Deleting...',
-                success: 'Size deleted 👌',
-                error: 'Something went wrong 🤯'
+                pending: 'Usuwanie...',
+                success: 'Rozmiar usunięty 👌',
+                error: 'Coś poszło nie tak.. 🤯'
             })
             navigate(`/sizes/${params.sid}/`);
         } catch (err) {
@@ -63,15 +63,15 @@ const SizeForm = ({initialData})=>{
             setLoading(true)
             if(initialData) {
                 await toast.promise(axios.patch(`http://localhost:3001/api/${params.sid}/${userId}/sizes/${params.sizeId}`, data),{
-                    pending: 'Updating...',
-                    success: 'Size updated 👌',
-                    error: 'Something went wrong 🤯'
+                    pending: 'Aktualizowanie...',
+                    success: 'Rozmiar zaktualizowany 👌',
+                    error: 'Coś poszło nie tak.. 🤯'
                 })
             } else {
                 await toast.promise(axios.post(`http://localhost:3001/api/${params.sid}/${userId}/sizes`, data),{
-                    pending: 'Creating...',
-                    success: 'Size created 👌',
-                    error: 'Something went wrong 🤯'
+                    pending: 'Tworzenie...',
+                    success: 'Rozmiar stworzony 👌',
+                    error: 'Coś poszło nie tak.. 🤯'
                 })
             }
             navigate(`/sizes/${params.sid}/`);
@@ -103,9 +103,9 @@ const SizeForm = ({initialData})=>{
                             name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel>Nazwa</FormLabel>
                                     <FormControl>
-                                        <Input disabled={loading} placeholder="Size name" {...field} />
+                                        <Input disabled={loading} placeholder="Nazwa rozmiaru" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -116,9 +116,9 @@ const SizeForm = ({initialData})=>{
                             name="value"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Value</FormLabel>
+                                    <FormLabel>Wartość</FormLabel>
                                     <FormControl>
-                                        <Input disabled={loading} placeholder="Size value" {...field} />
+                                        <Input disabled={loading} placeholder="Wartość rozmiaru" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
