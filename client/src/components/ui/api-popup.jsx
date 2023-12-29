@@ -20,7 +20,7 @@ const variantMap = {
 const ApiPopup = ({title,description,variant = 'public'})=>{
     const onCopy = (description) =>{
         navigator.clipboard.writeText(description)
-        toast.success("Copied to clipboard")
+        toast.success("Skopiowano do schowka")
     }
 
     return(

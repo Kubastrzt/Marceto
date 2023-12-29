@@ -55,39 +55,39 @@ const Dashboard = ()=>{
                         <div className='flex flex-col gap-4'>
                             <Card className='bg-gray-700 text-white border-black'>
                                 <CardHeader className='flex flex-row items-center justify-between'>
-                                    <CardTitle className='text-sm font-medium'>
+                                    <CardTitle className='text-sm font-medium text-pink-600'>
                                         Dochód
                                     </CardTitle>
                                     <DollarSign className='h-4 w-4 text-muted-foreground'/>
                                 </CardHeader>
                                 <CardContent>
-                                    <div className='text-2xl font-bold text-pink-700'>
+                                    <div className='text-2xl font-bold'>
                                         {formatter.format(dashboardValues.revenue)}
                                     </div>
                                 </CardContent>
                             </Card>
                             <Card className='bg-gray-700 text-white border-black'>
                                 <CardHeader className='flex flex-row items-center justify-between'>
-                                    <CardTitle className='text-sm font-medium'>
+                                    <CardTitle className='text-sm font-medium text-pink-600'>
                                         Obrót
                                     </CardTitle>
                                     <CreditCard className='h-4 w-4 text-muted-foreground'/>
                                 </CardHeader>
                                 <CardContent>
-                                    <div className='text-2xl font-bold text-pink-700'>
+                                    <div className='text-2xl font-bold'>
                                         {dashboardValues.sales}
                                     </div>
                                 </CardContent>
                             </Card>
                             <Card className='bg-gray-700 text-white border-black'>
                                 <CardHeader className='flex flex-row items-center justify-between'>
-                                    <CardTitle className='text-sm font-medium'>
+                                    <CardTitle className='text-sm font-medium text-pink-600'>
                                         Produkty w magazynie
                                     </CardTitle>
                                     <Package className='h-4 w-4 text-muted-foreground'/>
                                 </CardHeader>
                                 <CardContent>
-                                    <div className='text-2xl font-bold text-pink-600'>
+                                    <div className='text-2xl font-bold'>
                                         {dashboardValues.stock}
                                     </div>
                                 </CardContent>
@@ -95,7 +95,7 @@ const Dashboard = ()=>{
                         </div>
                         <Card className='col-span-2 bg-gray-700 text-white border-black'>
                             <CardHeader>
-                                <CardTitle>Aktualności</CardTitle>
+                                <CardTitle className='text-pink-600'>Aktualności</CardTitle>
                             </CardHeader>
                             <CardContent className='pl-2'>
                                 <Overview data={dashboardValues.data}/>

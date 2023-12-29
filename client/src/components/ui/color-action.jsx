@@ -22,7 +22,7 @@ export const ColorActions = ({data})=>{
     const navigate = useNavigate();
     const onCopy = (id) =>{
         navigator.clipboard.writeText(id)
-        toast.success("Copied to clipboard")
+        toast.success("Skopiowano do schowka")
     }
     const onDelete = async ()=>{
         try {
