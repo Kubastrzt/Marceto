@@ -20,7 +20,7 @@ const formSchema = z.object({
     imageUrl: z.string().min(1),
 })
 
-const BillboardForm = ({initialData})=>{
+const BannerForm = ({initialData})=>{
     const {userId} = useAuth();
     const navigate = useNavigate()
     const [open, setOpen] = useState(false);
@@ -38,19 +38,19 @@ const BillboardForm = ({initialData})=>{
     }, [initialData]);
 
 
-    const title = initialData ? "Edit billboard" : "Create billboard";
-    const description = initialData ? "Edit a billboard" : "Add a new billboard";
+    const title = initialData ? "Edit banner" : "Create banner";
+    const description = initialData ? "Edit a banner" : "Add a new banner";
     const action = initialData ? "Save changes" : "Create";
 
     const onDelete = async ()=>{
         try {
             setLoading(true)
-            await toast.promise(axios.delete(`http://localhost:3001/api/${params.sid}/${userId}/billboards/${params.bid}`),{
+            await toast.promise(axios.delete(`http://localhost:3001/api/${params.sid}/${userId}/banners/${params.bid}`),{
                 pending: 'Deleting...',
-                success: 'Billboard deleted 👌',
+                success: 'Banner deleted 👌',
                 error: 'Something went wrong 🤯'
             })
-            navigate(`/billboards/${params.sid}/`);
+            navigate(`/banners/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -63,19 +63,19 @@ const BillboardForm = ({initialData})=>{
         try {
             setLoading(true)
             if(initialData) {
-                await toast.promise(axios.patch(`http://localhost:3001/api/${params.sid}/${userId}/billboards/${params.bid}`, data),{
+                await toast.promise(axios.patch(`http://localhost:3001/api/${params.sid}/${userId}/banners/${params.bid}`, data),{
                     pending: 'Updating...',
-                    success: 'Billboard updated 👌',
+                    success: 'Banner updated 👌',
                     error: 'Something went wrong 🤯'
                 })
             } else {
-                await toast.promise(axios.post(`http://localhost:3001/api/${params.sid}/${userId}/billboards`, data),{
+                await toast.promise(axios.post(`http://localhost:3001/api/${params.sid}/${userId}/banners`, data),{
                     pending: 'Creating...',
-                    success: 'Billboard created 👌',
+                    success: 'Banner created 👌',
                     error: 'Something went wrong 🤯'
                 })
             }
-            navigate(`/billboards/${params.sid}/`);
+            navigate(`/banners/${params.sid}/`);
         } catch (err) {
             console.log(err)
         } finally {
@@ -124,7 +124,7 @@ const BillboardForm = ({initialData})=>{
                                 <FormItem>
                                     <FormLabel>Label</FormLabel>
                                     <FormControl>
-                                        <Input disabled={loading} placeholder="Billboard label" {...field} />
+                                        <Input disabled={loading} placeholder="Banner label" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -141,4 +141,4 @@ const BillboardForm = ({initialData})=>{
     );
 }
 
-export default BillboardForm
+export default BannerForm

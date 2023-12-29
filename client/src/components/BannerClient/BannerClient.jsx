@@ -8,15 +8,15 @@ import {Separator} from "@/components/ui/separator";
 import {columns} from "@/components/ui/column";
 import ApiList from "../ApiList/ApiList";
 
-const BillboardClient = ({data})=>{
+const BannerClient = ({data})=>{
     const navigate = useNavigate();
     const params = useParams();
 
     return(
         <>
             <div className='flex items-center justify-between'>
-                <Heading title={`Billboards (${data ? data.length : '0'})`} description='Store billboards'/>
-                <Button onClick={()=>navigate(`/billboards/${params.sid}/new`)}>
+                <Heading title={`Banners (${data ? data.length : '0'})`} description='Store banners'/>
+                <Button onClick={()=>navigate(`/banners/${params.sid}/new`)}>
                     <Plus className='mr-2 h-4 w-4'/>
                     Add new
                 </Button>
@@ -25,9 +25,9 @@ const BillboardClient = ({data})=>{
             <DataTable columns={columns} data={data}/>
             <Separator/>
             <Heading title='API' description='All endpoints'/>
-            <ApiList entityIdName='billboardId' entityName='billboards'/>
+            <ApiList entityIdName='bannerId' entityName='banners'/>
         </>
     );
 }
 
-export default BillboardClient
+export default BannerClient

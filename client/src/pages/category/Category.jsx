@@ -6,7 +6,7 @@ import CategoryForm from "@/components/Settings/CategoryForm";
 
 const Category = ()=>{
     const [category, setCategory]=useState(null)
-    const [billboards, setBillboards]=useState(null)
+    const [banners, setBanners]=useState(null)
     const params = useParams();
 
     const getCategories = async ()=>{
@@ -18,10 +18,10 @@ const Category = ()=>{
         }
     }
 
-    const getBillboards = async ()=>{
+    const getBanners = async ()=>{
         try{
-            const billboards = await axios.get(`http://localhost:3001/api/${params.sid}/billboards/`)
-            setBillboards(billboards.data)
+            const banners = await axios.get(`http://localhost:3001/api/${params.sid}/banners/`)
+            setBanners(banners.data)
         } catch (err) {
             console.log(err)
         }
@@ -29,17 +29,15 @@ const Category = ()=>{
 
     useEffect(()=>{
         getCategories();
-        getBillboards();
+        getBanners();
     },[params])
-
-    console.log(billboards);
 
     return(
         <>
             <Header/>
             <main className='flex-col'>
                 <div className='flex-1 space-y-4 p-8 pt-4'>
-                    <CategoryForm billboards={billboards} initialData={category}/>
+                    <CategoryForm banners={banners} initialData={category}/>
                 </div>
             </main>
         </>

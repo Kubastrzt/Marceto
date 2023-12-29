@@ -13,7 +13,7 @@ const Products = ()=>{
     const {userId} = useAuth();
     const fetchAllProducts = async ()=>{
         try{
-            const response = await axios.get(`http://localhost:3001/api/${params.sid}/products`);
+            const response = await axios.get(`http://localhost:3001/api/${params.sid}/products-list`);
             setAllProducts(response.data);
         } catch (err) {
             console.log(err)

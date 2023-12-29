@@ -17,10 +17,10 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 
 const formSchema = z.object({
     name: z.string().min(1),
-    billboardId: z.string().min(1),
+    bannerId: z.string().min(1),
 })
 
-const CategoryForm = ({billboards, initialData})=>{
+const CategoryForm = ({banners, initialData})=>{
     const {userId} = useAuth();
     const navigate = useNavigate()
     const [open, setOpen] = useState(false);
@@ -33,7 +33,7 @@ const CategoryForm = ({billboards, initialData})=>{
     useEffect(() => {
         form.reset(initialData || {
             name: '',
-            billboardId: '',
+            bannerId: '',
         });
     }, [initialData]);
 
@@ -114,20 +114,20 @@ const CategoryForm = ({billboards, initialData})=>{
                         />
                         <FormField
                             control={form.control}
-                            name="billboardId"
+                            name="bannerId"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Billboard</FormLabel>
+                                    <FormLabel>Banner</FormLabel>
                                     <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                                         <FormControl>
                                             <SelectTrigger>
-                                                <SelectValue defaultValue={field.value} placeholder='Select a billboard'/>
+                                                <SelectValue defaultValue={field.value} placeholder='Select a banner'/>
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            {billboards?.map(billboard=>(
-                                                <SelectItem key={billboard.id} value={billboard.id}>
-                                                    {billboard.label}
+                                            {banners?.map(banner=>(
+                                                <SelectItem key={banner.id} value={banner.id}>
+                                                    {banner.label}
                                                 </SelectItem>
                                                 ))}
                                         </SelectContent>

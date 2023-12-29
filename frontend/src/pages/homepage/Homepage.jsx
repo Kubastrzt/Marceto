@@ -1,19 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import Container from "../../components/ui/container";
 import Billboard from "../../components/Billboard/Billboard";
-import getBillboard from "../../api-calls/get-billboard";
+import {getBillboard} from "../../api-calls/get-billboard";
+import {getBillboards} from "../../api-calls/get-billboard";
 import getProducts from "../../api-calls/get-products";
 import ProductsList from "../../components/ProductsList/ProductsList";
 
 const Homepage = ()=>{
     const [billboard, setBillboard] = useState({});
     const [products, setProducts] = useState([]);
+    const [test, setTest] = useState([]);
 
     useEffect(() => {
         const fetchBillboard = async () => {
             try {
                 const result = await getBillboard("e76d9062-ac8b-4edc-8435-70e8290b1ad3");
+                const result2 = await getBillboards();
                 setBillboard(result);
+                setTest(result2);
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -31,6 +35,8 @@ const Homepage = ()=>{
         fetchBillboard();
         fetchProducts()
     }, []);
+
+    console.log(test);
 
     return(
         <Container>

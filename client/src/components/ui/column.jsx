@@ -1,4 +1,4 @@
-import BillboardActions from "./billboard-action";
+import BannerActions from "./banner-action";
 import CategoryActions from "./category-action";
 import SizeActions from "./size-action";
 import ColorActions from "./color-action";
@@ -15,7 +15,7 @@ export const columns = [
     },
     {
         id: "actions",
-        cell: ({row})=> <BillboardActions data={row.original}/>
+        cell: ({row})=> <BannerActions data={row.original}/>
     }
 ]
 
@@ -25,9 +25,9 @@ export const columnsCategories = [
         header: "Name",
     },
     {
-        accessorKey: "billboard",
-        header: "Billboard",
-        cell: ({row})=>row.original.billboardLabel,
+        accessorKey: "banner",
+        header: "Banner",
+        cell: ({row})=>row.original.bannerLabel,
     },
     {
         accessorKey: "createdAt",

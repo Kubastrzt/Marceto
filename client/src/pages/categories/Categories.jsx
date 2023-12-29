@@ -29,7 +29,7 @@ const Categories = ()=>{
     const formattedCategories = allCategories.length>0 && allCategories.map(item => ({
         id: item.id,
         name: item.name,
-        billboardLabel: item.billboard.label,
+        bannerLabel: item.banner.label,
         createdAt: format(new Date(item.createdAt), "MMMM do, yyyy"),
     }))
 

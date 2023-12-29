@@ -29,7 +29,7 @@ export const ProductActions = ({data})=>{
             setLoading(true)
             await toast.promise(axios.delete(`http://localhost:3001/api/${params.sid}/${userId}/products/${data.id}`),{
                 pending: 'Deleting...',
-                success: 'Billboard deleted 👌',
+                success: 'Banner deleted 👌',
                 error: 'Something went wrong 🤯'
             })
             navigate(`/products/${params.sid}/`);

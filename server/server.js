@@ -3,13 +3,32 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { ClerkExpressWithAuth  } = require('@clerk/clerk-sdk-node');
 const prismaDB = require("./lib/database.js");
+const stripe = require('stripe')('sk_test_51OPqcNDn9qS3tAxEbq6Palaeknc1ThsXYcNqyUT52RrxR5PmS9KCbbIsKv7ePFKMH2EXcZnruWqmrM6PSKVyexKA00uHAbOceA');
 
 const app = express();
 const port = process.env.PORT || 3001;
+const endpointSecret = "whsec_1e871cb17615ea478f7ab3b266e9ac5b9be4f0a30af67a811832cfb6787501f4";
 
 app.use(cors());
 
-app.use(bodyParser.json());
+const rawBodyMiddleware = (req, res, next) => {
+    if (req.url === '/api/webhook') {
+        bodyParser.raw({ type: 'application/json' })(req, res, (err) => {
+            if (err) return next(err);
+            req.rawBody = req.body.toString('utf-8');
+            next();
+        });
+    } else {
+        express.json({
+            limit: '5mb',
+            verify: (req, res, buf) => {
+                req.rawBody = buf.toString();
+            },
+        })(req, res, next);
+    }
+};
+
+app.use(rawBodyMiddleware);
 
 app.post('/api/stores', async (req, res) => {
     const data = req.body;
@@ -151,11 +170,11 @@ app.delete('/api/:sid/:uid', async (req, res)=>{
 
 
 
-// Get all billboards ordered desc
-app.get('/api/:sid/billboards', async (req, res)=>{
+// Get all banners ordered desc
+app.get('/api/:sid/banners', async (req, res)=>{
     const storeId = req.params.sid;
 
-    const billboards = await prismaDB.billboard.findMany({
+    const banners = await prismaDB.banner.findMany({
         where: {
             storeId
         },
@@ -164,24 +183,26 @@ app.get('/api/:sid/billboards', async (req, res)=>{
         }
     })
 
-    res.json(billboards);
+    res.json(banners);
 })
 
-// Get chosen billboard
-app.get('/api/:sid/billboards/:bid', async (req, res)=>{
-    const billboardId = req.params.bid;
+// Get chosen banner
+app.get('/api/:sid/banners/:bid', async (req, res)=>{
+    const bannerId = req.params.bid;
+    const storeId = req.params.sid;
 
-    const billboard = await prismaDB.billboard.findUnique({
+    const banner = await prismaDB.banner.findUnique({
         where: {
-            id: billboardId
+            id: bannerId,
+            storeId
         }
     })
 
-    res.json(billboard);
+    res.json(banner);
 })
 
-// Post one billboard
-app.post('/api/:sid/:uid/billboards', async (req, res)=>{
+// Post one banner
+app.post('/api/:sid/:uid/banners', async (req, res)=>{
     const storeId = req.params.sid;
     const userId = req.params.uid;
 
@@ -206,7 +227,7 @@ app.post('/api/:sid/:uid/billboards', async (req, res)=>{
 
         if(!label) {
             res.status(404).json({
-                status: "Billboard label is missing"
+                status: "Banner label is missing"
             })
 
             return;
@@ -214,7 +235,7 @@ app.post('/api/:sid/:uid/billboards', async (req, res)=>{
 
         if(!imageUrl) {
             res.status(404).json({
-                status: "Billboard url is missing"
+                status: "Banner url is missing"
             })
 
             return;
@@ -231,7 +252,7 @@ app.post('/api/:sid/:uid/billboards', async (req, res)=>{
             return;
         }
 
-        const billboard = await prismaDB.billboard.create({
+        const banner = await prismaDB.banner.create({
             data: {
                 label,
                 imageUrl,
@@ -239,17 +260,17 @@ app.post('/api/:sid/:uid/billboards', async (req, res)=>{
             }
         })
 
-        res.json(billboard);
+        res.json(banner);
     } catch (err) {
         console.log(err)
     }
 })
 
-// Update chosen billboard
-app.patch('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
+// Update chosen banner
+app.patch('/api/:sid/:uid/banners/:bid', async (req, res)=>{
     const storeId = req.params.sid;
     const userId = req.params.uid;
-    const billboardId = req.params.bid;
+    const bannerId = req.params.bid;
 
     const {label, imageUrl} = req.body;
 
@@ -272,7 +293,7 @@ app.patch('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
 
         if(!label) {
             res.status(404).json({
-                status: "Billboard label is missing"
+                status: "Banner label is missing"
             })
 
             return;
@@ -280,7 +301,7 @@ app.patch('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
 
         if(!imageUrl) {
             res.status(404).json({
-                status: "Billboard url is missing"
+                status: "Banner url is missing"
             })
 
             return;
@@ -297,26 +318,26 @@ app.patch('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
             return;
         }
 
-        const billboard = await prismaDB.billboard.updateMany({
+        const banner = await prismaDB.banner.updateMany({
             where: {
-                id: billboardId,
+                id: bannerId,
             },
             data: {
                 label,
                 imageUrl,
             }
         })
-        res.json(billboard);
+        res.json(banner);
     } catch (err) {
         console.log(err)
     }
 })
 
-// Delete chosen billboard
-app.delete('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
+// Delete chosen banner
+app.delete('/api/:sid/:uid/banners/:bid', async (req, res)=>{
     const storeId = req.params.sid;
     const userId = req.params.uid;
-    const billboardId = req.params.bid;
+    const bannerId = req.params.bid;
 
     try {
         if(!storeId) {
@@ -346,19 +367,19 @@ app.delete('/api/:sid/:uid/billboards/:bid', async (req, res)=>{
             return;
         }
 
-        const billboard = await prismaDB.billboard.deleteMany({
+        const banner = await prismaDB.banner.deleteMany({
             where: {
-                id: billboardId,
+                id: bannerId,
             },
         })
 
-        res.json(billboard);
+        res.json(banner);
     } catch (err) {
         console.log(err)
     }
 })
 
-// Get all categories ordered desc that are including billboard
+// Get all categories ordered desc that are including banner
 app.get('/api/:sid/categories', async (req, res)=>{
     const storeId = req.params.sid;
 
@@ -367,7 +388,7 @@ app.get('/api/:sid/categories', async (req, res)=>{
             storeId
         },
         include: {
-            billboard: true,
+            banner: true,
         },
         orderBy: {
             createdAt: 'desc'
@@ -380,10 +401,15 @@ app.get('/api/:sid/categories', async (req, res)=>{
 // Get chosen category
 app.get('/api/:sid/categories/:cid', async (req, res)=>{
     const categoryId = req.params.cid;
+    const storeId = req.params.sid;
 
     const category = await prismaDB.category.findUnique({
         where: {
-            id: categoryId
+            id: categoryId,
+            storeId
+        },
+        include: {
+            banner: true
         }
     })
 
@@ -395,7 +421,7 @@ app.post('/api/:sid/:uid/categories', async (req, res)=>{
     const storeId = req.params.sid;
     const userId = req.params.uid;
 
-    const {name, billboardId} = req.body;
+    const {name, bannerId} = req.body;
 
     try {
         if(!storeId) {
@@ -422,9 +448,9 @@ app.post('/api/:sid/:uid/categories', async (req, res)=>{
             return;
         }
 
-        if(!billboardId) {
+        if(!bannerId) {
             res.status(404).json({
-                status: "Billboard ID is missing"
+                status: "banner ID is missing"
             })
 
             return;
@@ -444,7 +470,7 @@ app.post('/api/:sid/:uid/categories', async (req, res)=>{
         const category = await prismaDB.category.create({
             data: {
                 name,
-                billboardId,
+                bannerId,
                 storeId
             }
         })
@@ -461,7 +487,7 @@ app.patch('/api/:sid/:uid/categories/:cid', async (req, res)=>{
     const userId = req.params.uid;
     const categoryId = req.params.cid;
 
-    const {name, billboardId} = req.body;
+    const {name, bannerId} = req.body;
 
     try {
         if(!storeId) {
@@ -488,9 +514,9 @@ app.patch('/api/:sid/:uid/categories/:cid', async (req, res)=>{
             return;
         }
 
-        if(!billboardId) {
+        if(!bannerId) {
             res.status(404).json({
-                status: "Billboard ID is missing"
+                status: "banner ID is missing"
             })
 
             return;
@@ -513,7 +539,7 @@ app.patch('/api/:sid/:uid/categories/:cid', async (req, res)=>{
             },
             data: {
                 name,
-                billboardId,
+                bannerId,
             }
         })
         res.json(category);
@@ -587,10 +613,12 @@ app.get('/api/:sid/sizes', async (req, res)=>{
 // Get chosen size
 app.get('/api/:sid/sizes/:sizeId', async (req, res)=>{
     const sizeId = req.params.sizeId;
+    const storeId = req.params.sid;
 
     const size = await prismaDB.size.findUnique({
         where: {
-            id: sizeId
+            id: sizeId,
+            storeId
         }
     })
 
@@ -794,10 +822,12 @@ app.get('/api/:sid/colors', async (req, res)=>{
 // Get chosen color
 app.get('/api/:sid/colors/:colorId', async (req, res)=>{
     const colorId = req.params.colorId;
+    const storeId = req.params.sid;
 
     const color = await prismaDB.color.findUnique({
         where: {
-            id: colorId
+            id: colorId,
+            storeId
         }
     })
 
@@ -1019,17 +1049,45 @@ app.get('/api/:sid/products', async (req, res)=>{
         console.log(err)
     }
 })
+app.get('/api/:sid/products-list', async (req, res)=>{
+    try {
+        const storeId = req.params.sid;
+
+        const products = await prismaDB.product.findMany({
+            where: {
+                storeId
+            },
+            include: {
+                category: true,
+                size: true,
+                color: true,
+            },
+            orderBy: {
+                createdAt: 'desc'
+            }
+        });
+
+        res.json(products);
+    } catch (err) {
+        console.log(err)
+    }
+})
 
 // Get chosen product
 app.get('/api/:sid/products/:productId', async (req, res)=>{
     const productId = req.params.productId;
+    const storeId = req.params.sid;
 
     const product = await prismaDB.product.findUnique({
         where: {
-            id: productId
+            id: productId,
+            storeId
         },
         include: {
             images: true,
+            category: true,
+            size: true,
+            color: true
         }
     })
 
@@ -1355,6 +1413,237 @@ app.get('/api/:sid/orders', async (req, res)=>{
     res.json(orders);
 })
 
-app.listen(port, () => {
+app.post('/api/:sid/checkout', async (req, res)=>{
+    const {productIds} = req.body
+    const storeId = req.params.sid;
+
+    if(!productIds || productIds.length===0) {
+        res.status(400).json({
+            status: "Products missing"
+        })
+    }
+
+    const products = await prismaDB.product.findMany({
+        where: {
+            id: {
+                in: productIds
+            }
+        }
+    })
+
+    let line_items = []
+
+    products.forEach((product)=>{
+        line_items.push(
+            {
+                quantity: 1,
+                price_data: {
+                    currency: 'PLN',
+                    product_data: {
+                        name: product.name,
+                    },
+                    unit_amount: product.price.toNumber() * 100
+                },
+            }
+        )
+    })
+
+    const order = await prismaDB.order.create({
+        data: {
+            storeId,
+            isPaid: false,
+            orderItems: {
+                create: productIds.map((productId)=>({
+                    product: {
+                        connect: {
+                            id: productId
+                        }
+                    }
+                }))
+            }
+        }
+    })
+
+    const session = await stripe.checkout.sessions.create({
+        line_items,
+        mode: "payment",
+        billing_address_collection: "required",
+        phone_number_collection: {
+            enabled: true
+        },
+        success_url: "http://localhost:3002/cart?success=1",
+        cancel_url: "http://localhost:3002/cart?canceled=1",
+        metadata: {
+            orderId: order.id
+        }
+    })
+
+    res.send({url: session.url});
+});
+
+app.post('/api/webhook', async (req, res)=>{
+    const signature = req.headers['stripe-signature'];
+    let event;
+
+    try {
+        event = stripe.webhooks.constructEvent(req.rawBody, signature, endpointSecret);
+    } catch (err) {
+        res.status(400).send(`Webhook Error: ${err.message}`);
+        return;
+    }
+
+    const session = event?.data?.object;
+    const address = session?.customer_details?.address
+
+    const addressInfo = [
+        address?.line1,
+        address?.line2,
+        address?.city,
+        address?.state,
+        address?.postal_code,
+        address?.country,
+    ]
+
+    const addressString = addressInfo.filter((x) => x !== null).join(', ');
+
+    if(event.type === 'checkout.session.completed') {
+        const order = await prismaDB.order.update({
+            where: {
+                id: session?.metadata.orderId,
+            },
+            data: {
+                isPaid: true,
+                address: addressString,
+                phone: session?.customer_details?.phone || ''
+            },
+            include: {
+                orderItems: true
+            }
+        })
+
+        const productIds = order.orderItems.map((orderItem)=>orderItem.productId)
+
+        await prismaDB.product.updateMany({
+            where: {
+                id: {
+                    in: [...productIds]
+                }
+            },
+            data: {
+                isArchived: true
+            }
+        })
+    }
+
+    res.send()
+})
+
+app.get('/api/:sid/revenues', async (req,res)=>{
+    const storeId = req.params.sid
+
+    const paidOrders = await prismaDB.order.findMany({
+        where: {
+            storeId,
+            isPaid: true
+        },
+        include: {
+            orderItems: {
+                include: {
+                    product: true
+                }
+            }
+        }
+    });
+
+    const totalRevenue = paidOrders.reduce((total, order) => {
+        const orderTotal = order.orderItems.reduce((orderSum, item) => {
+            return orderSum + item.product.price.toNumber();
+        }, 0);
+        return total + orderTotal;
+    }, 0);
+
+    res.json({totalRevenue})
+})
+app.get('/api/:sid/sales', async (req,res)=>{
+    const storeId = req.params.sid
+
+    const salesCount = await prismaDB.order.count({
+        where: {
+            storeId,
+            isPaid: true
+        }
+    });
+
+    res.json({salesCount})
+})
+
+app.get('/api/:sid/stock', async (req,res)=>{
+    const storeId = req.params.sid
+
+    const stockCount = await prismaDB.product.count({
+        where: {
+            storeId,
+            isArchived: false
+        }
+    });
+
+    res.json({stockCount})
+})
+
+app.get('/api/:sid/graph-revenue', async (req,res)=>{
+    const storeId = req.params.sid
+
+    const paidOrders = await prismaDB.order.findMany({
+        where: {
+            storeId,
+            isPaid: true
+        },
+        include: {
+            orderItems: {
+                include: {
+                    product: true
+                }
+            }
+        }
+    });
+
+    const monthlyRevenue = {}
+
+    for(const order of paidOrders) {
+        const month = order.createdAt.getMonth();
+        let revenueForOrder = 0;
+
+        for(const item of order.orderItems) {
+            revenueForOrder += item.product.price.toNumber();
+        }
+
+        monthlyRevenue[month] = (monthlyRevenue[month] || 0) + revenueForOrder;
+    }
+
+    const graph = [
+        {name: "Sty", total: 0},
+        {name: "Lut", total: 0},
+        {name: "Mar", total: 0},
+        {name: "Kwi", total: 0},
+        {name: "Maj", total: 0},
+        {name: "Cze", total: 0},
+        {name: "Lip", total: 0},
+        {name: "Sie", total: 0},
+        {name: "Wrz", total: 0},
+        {name: "Paź", total: 0},
+        {name: "Lis", total: 0},
+        {name: "Gru", total: 0},
+    ]
+
+    for(const month in monthlyRevenue) {
+        graph[parseInt(month)].total = monthlyRevenue[parseInt(month)]
+    }
+
+    res.json({graph})
+})
+
+
+
+    app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

@@ -14,8 +14,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
 import Settings from '@/pages/settings/Settings';
 import CreateStore from "@/pages/createStore/CreateStore";
-import Billboards from "@/pages/billboards/Billboards";
-import Billboard from "@/pages/billboard/Billboard";
+import Banners from "@/pages/banners/Banners";
+import Banner from "@/pages/banner/Banner";
 import Categories from "@/pages/categories/Categories";
 import Category from "@/pages/category/Category";
 import Sizes from "@/pages/sizes/Sizes";
@@ -58,8 +58,8 @@ const ClerkWithRoutes = () =>{
                 <Route path='/sign-in/*' element={<SignIn routing='path' path='/sign-in'/>}/>
                 <Route path='/dashboard/:sid/' element={<Dashboard routing='path' path='/dashboard/:sid/'/>}/>
                 <Route path='/settings/:sid/' element={<Settings routing='path' path='/settings/:sid/'/>}/>
-                <Route path='/billboards/:sid/' element={<Billboards routing='path' path='/billboards/:sid/'/>}/>
-                <Route path='/billboards/:sid/:bid' element={<Billboard routing='path' path='/billboards/:sid/:bid'/>}/>
+                <Route path='/banners/:sid/' element={<Banners routing='path' path='/banners/:sid/'/>}/>
+                <Route path='/banners/:sid/:bid' element={<Banner routing='path' path='/banners/:sid/:bid'/>}/>
                 <Route path='/categories/:sid/' element={<Categories routing='path' path='/categories/:sid/'/>}/>
                 <Route path='/categories/:sid/:cid' element={<Category routing='path' path='/categories/:sid/:cid'/>}/>
                 <Route path='/sizes/:sid/' element={<Sizes routing='path' path='/sizes/:sid/'/>}/>

@@ -44,9 +44,9 @@ const Navigation = ()=>{
             active: pathname === `/dashboard/${params.sid}/`
         },
         {
-            href: `/billboards/${params.sid}/`,
-            label: 'Billboards',
-            active: pathname === `/billboards/${params.sid}/`
+            href: `/banners/${params.sid}/`,
+            label: 'Banners',
+            active: pathname === `/banners/${params.sid}/`
         },
         {
             href: `/settings/${params.sid}/`,
