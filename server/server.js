@@ -80,6 +80,10 @@ app.get('/api/user/:id/:sid', async (req, res)=>{
 })
 
 app.get('/api/stores',ClerkExpressWithAuth(), async (req, res)=>{
+    if(!req.auth.userId) {
+        return res.status(400).json({error: "Unauthorized"});
+    }
+
     const stores = await prismaDB.store.findMany({
         where: {
             userId: req.auth.userId,
